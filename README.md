@@ -1,15 +1,16 @@
-# AnaLog - Tabela de Conteúdos
--   [Mockup Funcional](#analog---tabela-de-conteúdos)
--   [Diagrama base de dados](#diagrama-base-de-dados)
-
-# Dashboard
-O dashboard pode ser encontrado [aqui](https://sites.google.com/view/lei-gps1819-g14).
+# [AnaLog](https://sites.google.com/view/lei-gps1819-g14/home) - Tabela de Conteúdos
+- [Mockup Funcional](#mockup-funcional)
+- [Diagrama de classes](#diagrama-de-classes)
+- [Diagrama base de dados](#diagrama-base-de-dados)
 
 # Mockup funcional
 A mockup funcional na pode ser encontrada [aqui](https://xd.adobe.com/view/4fabe033-1328-4cc8-4b21-e9e4dc635762-399a/screen/073bf69b-7704-4bdf-bcc7-091cb8da44a3/AnaLog-Home-Rolos?fullscreen).
 
+# Diagrama de classes
+![DiagramaClasses](docs/Classes/diagramaclasses.png)
+
 # Diagrama base de dados
-![Diagrama](docs/BD/BD_AnaLog.PNG)
+![DiagramaBD](docs/BD/BD_AnaLog.PNG)
 
 # Projeto desenvolvido por:
 - Ivo Henrique Rodrigues Casimiro (a21220708@isec.pt)
