@@ -1,8 +1,6 @@
 # AnaLog - Tabela de Conteúdos
--   [Mockups](#analog---tabela-de-conteúdos)
--   Green
--   Blue
-
+-   [Mockup Funcional](#analog---tabela-de-conteúdos)
+-   [Diagrama base de dados](#diagrama-base-de-dados)
 
 # Dashboard
 O dashboard pode ser encontrado [aqui](https://sites.google.com/view/lei-gps1819-g14).
