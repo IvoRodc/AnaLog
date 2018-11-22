@@ -20,9 +20,9 @@ CREATE TABLE `Rolo` (
 
 CREATE TABLE `Exposicao` (
 	`IDexp` INT NOT NULL AUTO_INCREMENT,
-	`VelDisparo` INT,
-	`Abertura` INT,
-	`DistFocal` INT,
+	`VelDisparo` FLOAT,
+	`Abertura` FLOAT,
+	`DistFocal` FLOAT,
 	`Descricao` TEXT,
 	`Data` DATE NOT NULL,
 	`IDrolo` INT NOT NULL,
