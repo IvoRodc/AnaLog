@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Analog</string>
+
+
+    <!-- Strings activity_rolos -->
+    <string name="titulo_activity_rolos">Rolos</string>
 </resources>

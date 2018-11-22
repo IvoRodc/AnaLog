@@ -1,16 +1,25 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:background">@color/white</item>
     </style>
 
-    <style name="AppTheme.splashScreen" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme.splashScreen" parent="AppTheme">
         <item name="android:windowBackground">@color/blue300</item>
         <item name="android:navigationBarColor">@color/blue300</item>
         <item name="android:statusBarColor">@color/blue300</item>
+        <item name="android:background">@color/blue300</item>
+    </style>
+
+    <style name="AppTheme.Title" parent="AppTheme">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
