@@ -1,5 +1,6 @@
 package pt.isec.gps.grupo14.analog.Classes;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.nfc.NfcAdapter;
@@ -91,7 +92,6 @@ public class DBInterface extends SQLiteOpenHelper {
                 + DataExp + " DATE)";
         //endregion
 
-
         Log.w("Camera ->", CREATE_TABLE_CAMERA);
         Log.w("Objetiva ->", CREATE_TABLE_OBJETIVA);
         Log.w("Rolo ->", CREATE_TABLE_ROLO);
@@ -109,7 +109,8 @@ public class DBInterface extends SQLiteOpenHelper {
         //onCreate(db);
     }
 
-    public void addRolo (Rolo r){
-        
+    public int addRolo (Rolo r){
+        ContentValues value = new ContentValues();
+        value.put(IDrolo, h.getI);
     }
 }
