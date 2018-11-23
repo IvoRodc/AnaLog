@@ -3,6 +3,6 @@
 
 
     <!-- Strings activity_rolos -->
-    <string name="titulo_activity_rolos">Rolos</string>
-    <string name="titulo_activity_exposicao">Exposições</string>
+    <string name="titulo_activity_rolos">Meus Rolos</string>
+    <string name="titulo_activity_exposicao">Rolo #</string>
 </resources>

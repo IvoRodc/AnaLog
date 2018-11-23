@@ -23,13 +23,13 @@
             android:gravity="left">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/num_fotos"
+                android:id="@+id/Card_data_foto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="31 Jan 2018"/>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/nome_rolo"
+                android:id="@+id/Card_nome_foto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Foto 1"
@@ -46,7 +46,7 @@
                     android:tint="@color/bottomAppBarColor"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/nome_camera"
+                    android:id="@+id/Card_Desc_Foto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lorem ipsum dolor sit amet"
