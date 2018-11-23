@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways"
             app:contentInsetStart="0dp"
-            android:background="@color/white">
+            android:background="@color/white"
+            app:navigationIcon="?attr/homeAsUpIndicator">
 
 
             <TextView
@@ -26,7 +27,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:text="@string/titulo_activity_exposicao"
-                style="@style/AppTheme.Title"/>
+                style="@style/AppTheme.Title"
+                android:layout_marginRight="?android:attr/actionBarSize"/>
 
         </androidx.appcompat.widget.Toolbar>
         <androidx.appcompat.widget.Toolbar

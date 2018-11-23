@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class ExposicaoActivity extends AppCompatActivity {
@@ -23,13 +24,16 @@ public class ExposicaoActivity extends AppCompatActivity {
             IDRolo = intent.getIntExtra("idrolo", 0); //Get id rolo
 
         //TOOLBAR config
-        Toolbar collapsingToolbar = findViewById(R.id.toolbar);
+       Toolbar Toolbar = findViewById(R.id.toolbar);
+       Toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               finish();
+           }
+       });
         TextView titulo = findViewById(R.id.title_Exp);
-
         titulo.setText("Rolo #" + IDRolo);
-        assert getSupportActionBar() != null;
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
         //VARS para o cabeçalho
