@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".RolosActivity"></activity>
-        <activity android:name=".ExposicaoActivity"></activity>
+        <activity android:name=".ExposicaoActivity"
+            android:parentActivityName=".RolosActivity"></activity>
     </application>
 
 </manifest>

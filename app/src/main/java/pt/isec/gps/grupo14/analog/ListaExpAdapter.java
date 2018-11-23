@@ -55,8 +55,8 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
 
         ((ViewHolder)viewHolder).nomeFoto.setText("Foto 1");
 
-        ((ViewHolder)viewHolder).dataFoto.setText("31 Jan 2018");
-        ((ViewHolder)viewHolder).descFoto.setText("Descrição concisa da cena");
+        ((ViewHolder)viewHolder).dataFoto.setText("31 Fev 2018");
+        ((ViewHolder)viewHolder).descFoto.setText("Descrição concisa da foto");
     }
 
     @Override

@@ -19,11 +19,12 @@
             app:contentInsetStart="0dp"
             android:background="@color/white">
 
+
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/title_Exp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:text="@string/titulo_activity_exposicao"
                 style="@style/AppTheme.Title"/>
 
@@ -59,11 +60,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_round_camera"
-                            android:tint="@color/bottomAppBarColor"/>
+                            android:tint="@color/bottomAppBarColor"
+                            android:padding="5dp"/>
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/Cab_camera"
@@ -71,7 +74,8 @@
                             android:layout_height="wrap_content"
                             android:text="Camera"
                             android:textSize="13sp"
-                            android:layout_marginStart="2dp"/>
+                            android:layout_marginStart="2dp"
+                            android:padding="5dp"/>
 
                     </LinearLayout>
 
