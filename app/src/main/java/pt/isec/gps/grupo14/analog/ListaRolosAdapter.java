@@ -1,5 +1,7 @@
 package pt.isec.gps.grupo14.analog;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,7 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
         AppCompatTextView descRolo;
 
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             nFotos = itemView.findViewById(R.id.num_fotos);
@@ -30,12 +32,14 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
             dataCriacao = itemView.findViewById(R.id.data_rolo);
             descRolo = itemView.findViewById(R.id.descricao_rolo);
 
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Snackbar.make(v, "click detected on item " + getAdapterPosition(),
-                            Snackbar.LENGTH_SHORT).setAction("Action", null)
-                            .show();
+                    //Mudar atividade
+                    Intent intent = new Intent(itemView.getContext(), ExposicaoActivity.class);
+                    //intent.putExtra("idrolo", idrolo);
+                    itemView.getContext().startActivity(intent);
                 }
             });
         }
