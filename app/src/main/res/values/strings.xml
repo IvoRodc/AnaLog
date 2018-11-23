@@ -4,4 +4,5 @@
 
     <!-- Strings activity_rolos -->
     <string name="titulo_activity_rolos">Rolos</string>
+    <string name="titulo_activity_exposicao">Exposições</string>
 </resources>
