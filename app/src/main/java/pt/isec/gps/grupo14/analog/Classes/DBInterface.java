@@ -9,6 +9,8 @@ import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import pt.isec.gps.grupo14.analog.ExposicaoActivity;
 
@@ -131,9 +133,33 @@ public class DBInterface extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
+        db.close();
         return  new rolo(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),
                 cursor.getInt(3),cursor.getInt(4),cursor.getInt(5),
                 cursor.getInt(6),cursor.getInt(7),cursor.getInt(8));
+    }
+
+    public HashMap<Integer, Rolo> getRolos(){
+        String selectQuery = "SELECT * FROM " + table_rolo;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        db.close();
+
+        if(cursor.getCount()>0){
+            Map<Integer, Rolo> listaRolos = new HashMap<>();
+
+            do{
+                Rolo r =  new rolo(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),
+                        cursor.getInt(3),cursor.getInt(4),cursor.getInt(5),
+                        cursor.getInt(6),cursor.getInt(7),cursor.getInt(8));
+                listaRolos.put(r.getID(), r);
+            }while(cursor.moveToNext());
+
+            return listaRolos;
+        }
+        else {
+            return null;
+        }
     }
 
     public int addRolo (Rolo rolo){
@@ -176,6 +202,8 @@ public class DBInterface extends SQLiteOpenHelper {
         value.put(DataRolo, rolo.getDate());
 
         db.update(table_rolo, value,"IDrolo= ?", new String [] {rolo.getID()});
+
+        db.close();
     }
 
     public void removeRolo(){
@@ -189,9 +217,35 @@ public class DBInterface extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
+        db.close();
+
         return  new exposicao(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),
                 cursor.getInt(3),cursor.getInt(4),cursor.getInt(5),
                 cursor.getInt(6),cursor.getInt(7));
+    }
+
+    public HashMap<Integer, Esposicao> getExposicoes(){
+        String selectQuery = "SELECT * FROM " + table_exposicao;
+        SQLiteDatabase db  = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        db.close();
+
+        if(cursor.getCount()>0){
+            Map<Integer, Exposicao> listaExposicoes = new HashMap<>();
+
+            do{
+                Exposicao exp = new exposicao(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),
+                        cursor.getInt(3),cursor.getInt(4),cursor.getInt(5),
+                        cursor.getInt(6),cursor.getInt(7));
+                listaExposicoes.put(exp.getID(),exp);
+            }while(cursor.moveToNext());
+
+            return listaExposicoes;
+        }
+        else {
+            return null;
+        }
     }
 
     public int addExposicao(Exposicao exp){
@@ -230,6 +284,8 @@ public class DBInterface extends SQLiteOpenHelper {
         value.put(DataExp, exp.getData());
 
         db.update(table_exposicao,value,"IDexp = ?", new String[] {exp.getID()});
+
+        db.close();
     }
 
     public void removeExposicao(){
@@ -243,7 +299,30 @@ public class DBInterface extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
+        db.close();
+
         return  new camera(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
+    }
+
+    public HashMap<Integer, Camera> getCameras(){
+        String selectQuery = "SELECT * FROM " + table_camera;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,null);
+        db.close();
+
+        if(cursor.getCount()>0){
+            Map<Integer, Camera> listaCameras = new HashMap<>();
+
+            do{
+                Camera cam = new camera(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
+                listaCameras.put(cam.getID(),cam);
+            }while(cursor.moveToNext());
+
+            return listaCameras;
+        }
+        else {
+            return null;
+        }
     }
 
     public void addCamera(Camera cam) {
@@ -271,7 +350,30 @@ public class DBInterface extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
+        db.close();
+
         return  new objetiva(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
+    }
+
+    public HashMap<Integer, Objetiva> getObjetivas(){
+        String selectQuery = "SELECT * FROM " + table_objetiva;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,null);
+        db.close();
+
+        if(cursor.getCount()>0){
+            Map<Integer, Objetiva> listaObjetivas = new HashMap<>();
+
+            do{
+                Objetiva obj = new objetiva(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
+                listaObjetivas.put(obj.getID(),obj);
+            }while(cursor.moveToNext());
+
+            return listaObjetivas;
+        }
+        else {
+            return null;
+        }
     }
 
     public void addObjetiva (Objetiva obj){
