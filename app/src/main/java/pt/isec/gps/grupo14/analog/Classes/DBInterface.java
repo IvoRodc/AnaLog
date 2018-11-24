@@ -5,14 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 import android.util.Log;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import pt.isec.gps.grupo14.analog.ExposicaoActivity;
 
 public class DBInterface extends SQLiteOpenHelper {
 
@@ -294,6 +290,9 @@ public class DBInterface extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    //-------------- Cameras
+
     public Camera getCamera(int idCamera){
         String selectQuery = "SELECT * FROM " + table_camera + " WHERE " + IDcam + "=" + idCamera;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -301,7 +300,7 @@ public class DBInterface extends SQLiteOpenHelper {
 
         db.close();
 
-        return  new camera(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
+        return  new Camera(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
     }
 
     public HashMap<Integer, Camera> getCameras(){
@@ -311,11 +310,11 @@ public class DBInterface extends SQLiteOpenHelper {
         db.close();
 
         if(cursor.getCount()>0){
-            Map<Integer, Camera> listaCameras = new HashMap<>();
+            HashMap<Integer, Camera> listaCameras = new HashMap<>();
 
             do{
-                Camera cam = new camera(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
-                listaCameras.put(cam.getID(),cam);
+                Camera cam = new Camera(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
+                listaCameras.put(cam.getIdCamera(),cam);
             }while(cursor.moveToNext());
 
             return listaCameras;
@@ -330,7 +329,6 @@ public class DBInterface extends SQLiteOpenHelper {
 
         ContentValues value = new ContentValues();
 
-        value.put(IDcam, cam.getID());
         value.put(MarcaCam, cam.getMarca());
         value.put(ModeloCam, cam.getModelo());
 
@@ -339,11 +337,14 @@ public class DBInterface extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void removeCamera(){
+    public void removeCamera(int idCamera){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + table_camera);
+        db.execSQL("DELETE FROM " + table_camera + " WHERE " + IDobj + "=" + idCamera);
         db.close();
     }
+
+
+    //-------------- Objetivas
 
     public Objetiva getObjetiva(int idObjetiva){
         String selectQuery = "SELECT * FROM " + table_objetiva + " WHERE " + IDobj + "=" + idObjetiva;
@@ -352,7 +353,7 @@ public class DBInterface extends SQLiteOpenHelper {
 
         db.close();
 
-        return  new objetiva(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
+        return  new Objetiva(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
     }
 
     public HashMap<Integer, Objetiva> getObjetivas(){
@@ -362,11 +363,11 @@ public class DBInterface extends SQLiteOpenHelper {
         db.close();
 
         if(cursor.getCount()>0){
-            Map<Integer, Objetiva> listaObjetivas = new HashMap<>();
+            HashMap<Integer, Objetiva> listaObjetivas = new HashMap<>();
 
             do{
-                Objetiva obj = new objetiva(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
-                listaObjetivas.put(obj.getID(),obj);
+                Objetiva obj = new Objetiva(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
+                listaObjetivas.put(obj.getIdObjetiva(),obj);
             }while(cursor.moveToNext());
 
             return listaObjetivas;
@@ -376,23 +377,26 @@ public class DBInterface extends SQLiteOpenHelper {
         }
     }
 
-    public void addObjetiva (Objetiva obj){
+    public int addObjetiva (Objetiva obj){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues value = new ContentValues();
 
-        value.put(IDobj, obj.getID());
         value.put(MarcaObj, obj.getMarca());
         value.put(ModeloObj, obj.getModelo());
 
         //Insert Row
         db.insert(table_objetiva, null, value);
+
+        String lastId = "SELECT " + IDcam + " FROM "+ table_objetiva + " ORDER BY 'DESC' LIMIT 1";
+        Cursor cursor = db.rawQuery(lastId, null);
         db.close();
+        return cursor.getInt(0);
     }
 
-    public void removeObjetiva(){
+    public void removeObjetiva(int idObj){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + table_objetiva);
+        db.execSQL("DELETE FROM " + table_objetiva + " WHERE "+IDobj +"="+idObj);
         db.close();
     }
 }
