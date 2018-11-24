@@ -7,6 +7,90 @@
     tools:context=".ExposicaoActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:contentInsetStart="0dp"
+        android:background="@color/white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:layout_marginTop="?attr/actionBarSize">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="left">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/Cab_num_Fotos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1/36"
+                    android:padding="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_round_camera"
+                        android:tint="@color/bottomAppBarColor"
+                        android:padding="5dp"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/Cab_camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Camera"
+                        android:textSize="13sp"
+                        android:layout_marginStart="2dp"
+                        android:padding="5dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="right">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/Cab_data_criacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="69/69/1969"
+                    android:padding="5dp"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/Cab_desc_rolo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descricao ROLO"
+                    android:layout_marginRight="1dp"
+                    android:padding="5dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -15,11 +99,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:contentInsetStart="0dp"
             android:background="@color/white"
             app:navigationIcon="?attr/homeAsUpIndicator">
-
             <TextView
                 android:id="@+id/title_Exp"
                 android:layout_width="wrap_content"
@@ -28,84 +109,6 @@
                 style="@style/AppTheme.Title"
                 android:layout_gravity="center"
                 />
-
-        </androidx.appcompat.widget.Toolbar>
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarinfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:contentInsetStart="0dp"
-            android:background="@color/white">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="left">
-
-
-                     <androidx.appcompat.widget.AppCompatTextView
-                         android:id="@+id/Cab_num_Fotos"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:text="1/36"
-                         android:padding="5dp"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_round_camera"
-                            android:tint="@color/bottomAppBarColor"
-                            android:padding="5dp"/>
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/Cab_camera"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Camera"
-                            android:textSize="13sp"
-                            android:layout_marginStart="2dp"
-                            android:padding="5dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="right">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/Cab_data_criacao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="69/69/1969"
-                        android:padding="5dp"/>
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/Cab_desc_rolo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Descricao ROLO"
-                            android:layout_marginRight="1dp"
-                            android:padding="5dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
