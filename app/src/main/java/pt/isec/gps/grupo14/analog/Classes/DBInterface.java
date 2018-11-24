@@ -1,6 +1,7 @@
 package pt.isec.gps.grupo14.analog.Classes;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.nfc.NfcAdapter;
@@ -71,7 +72,7 @@ public class DBInterface extends SQLiteOpenHelper {
         + table_rolo + " ("
         + IDrolo + "INTEGER PRIMARY KEY AUTOINCREMENT, "
         + Titulo + " VARCHAR(20),"
-        + ISO + " FLOAT,"
+        + ISO + " INTEGER,"
         + Formato + " INTEGER,"
         + NExposicoes + " INTEGER,"
         + DescricaoRolo + " TEXT,"
@@ -85,9 +86,9 @@ public class DBInterface extends SQLiteOpenHelper {
         String CREATE_TABLE_EXPOSICAO = "CREATE TABLE IF NOT EXISTS"
                 + table_exposicao + " ("
                 + IDexp + " INTEGER, "
-                + VelDisparo + " FLOAT,"
+                + VelDisparo + " INTEGER,"
                 + Abertura + " FLOAT,"
-                + DistFocal + " FLOAT,"
+                + DistFocal + " INTEGER,"
                 + DescricaoExp + " TEXT,"
                 + DataExp + " DATE)";
         //endregion
@@ -101,7 +102,12 @@ public class DBInterface extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_OBJETIVA);
         db.execSQL(CREATE_TABLE_ROLO);
         db.execSQL(CREATE_TABLE_EXPOSICAO);
-        }
+
+
+
+
+
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -110,7 +116,38 @@ public class DBInterface extends SQLiteOpenHelper {
     }
 
     public int addRolo (Rolo r){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues value = new ContentValues();
-        value.put(IDrolo, h.getI);
+        value.put(IDrolo, r.getID());
+        value.put(Titulo, r.getTitulo());
+        value.put(ISO, r.getISO());
+        value.put(Formato, r.getFormato());
+        value.put(NExposicoes, r.getMaxExposicoes());
+        value.put(DescricaoRolo, r.getDescricao());
+        value.put(Revelado, r.getRevelado());
+        value.put(DataRolo, r.getDate());
+
+        //Insert Row
+        db.insert(table_rolo, null, value);
+
+        String selectQuery = "SELECT " + IDrolo + " FROM " + table_rolo + " ORDER BY DESC";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        db.close();
+
+        return cursor.getInt(0);
     }
+
+    public void dropRolos(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + table_rolo);
+        db.close();
+    }
+
+
+
+
+
 }
