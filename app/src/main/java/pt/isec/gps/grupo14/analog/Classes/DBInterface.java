@@ -14,9 +14,11 @@ import pt.isec.gps.grupo14.analog.ExposicaoActivity;
 
 public class DBInterface extends SQLiteOpenHelper {
 
+    //Versão
+    private static final int DB_versao = 1;
 
     //Nome da base de dados
-    private static final String database_name = "AnaLog";
+    private static final String DB_name = "AnaLog";
 
     //region TABELA CAMERA
     private static final String table_camera = "Camera";
@@ -56,7 +58,7 @@ public class DBInterface extends SQLiteOpenHelper {
 
 
     public DBInterface(Context context){
-        super(context, database_name, null, 0);
+        super(context, DB_name, null, DB_versao);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class DBInterface extends SQLiteOpenHelper {
         String CREATE_TABLE_CAMERA = "CREATE TABLE IF NOT EXISTS "
                 + table_camera + " ("
                 + IDcam + "INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + MarcaCam +  "VARCHAR(20), "
+                + MarcaCam +  " VARCHAR(20), "
                 + ModeloCam + " VARCHAR(20))";
         //endregion
 
@@ -87,8 +89,9 @@ public class DBInterface extends SQLiteOpenHelper {
         + Formato + " INTEGER,"
         + NExposicoes + " INTEGER,"
         + DescricaoRolo + " TEXT,"
-        + Revelado + "BOOLEAN,"
-        + DataRolo + "DATE)";
+        + Revelado + " BOOLEAN,"
+        + DataRolo + " DATE,"
+        + IDcam + " INTEGER)";
         //endregion
 
 
@@ -100,7 +103,9 @@ public class DBInterface extends SQLiteOpenHelper {
                 + Abertura + " FLOAT,"
                 + DistFocal + " INTEGER,"
                 + DescricaoExp + " TEXT,"
-                + DataExp + " DATE)";
+                + DataExp + " DATE,"
+                + IDrolo + "INTEGER, "
+                + IDobj + "INTEGER)";
         //endregion
 
         Log.w("Camera ->", CREATE_TABLE_CAMERA);
@@ -119,6 +124,16 @@ public class DBInterface extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Create table again
         //onCreate(db);
+    }
+
+    public Rolo getRolo(int idRolo) {
+        String selectQuery = "SELECT * FROM " + table_rolo + " WHERE " + IDrolo + "=" + idRolo;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        return  new rolo(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),
+                cursor.getInt(3),cursor.getInt(4),cursor.getInt(5),
+                cursor.getInt(6),cursor.getInt(7),cursor.getInt(8));
     }
 
     public int addRolo (Rolo rolo){
@@ -146,13 +161,40 @@ public class DBInterface extends SQLiteOpenHelper {
         return cursor.getInt(0);
     }
 
+    public void updateRolo(Rolo rolo){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues value = new ContentValues();
+
+        value.put(IDrolo, rolo.getID());
+        value.put(Titulo, rolo.getTitulo());
+        value.put(ISO, rolo.getISO());
+        value.put(Formato, rolo.getFormato());
+        value.put(NExposicoes, rolo.getMaxExposicoes());
+        value.put(DescricaoRolo, rolo.getDescricao());
+        value.put(Revelado, rolo.getRevelado());
+        value.put(DataRolo, rolo.getDate());
+
+        db.update(table_rolo, value,"IDrolo= ?", new String [] {rolo.getID()});
+    }
+
     public void removeRolo(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + table_rolo);
         db.close();
     }
 
-    public int addExposicao(int IDRolo, Exposicao exp){
+    public Exposicao getExposicao(int idExposicao){
+        String selectQuery = "SELECT * FROM " + table_exposicao + " WHERE " + IDexp + "=" + idExposicao;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        return  new exposicao(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),
+                cursor.getInt(3),cursor.getInt(4),cursor.getInt(5),
+                cursor.getInt(6),cursor.getInt(7));
+    }
+
+    public int addExposicao(Exposicao exp){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues value = new ContentValues();
@@ -175,12 +217,34 @@ public class DBInterface extends SQLiteOpenHelper {
         return cursor.getInt(0);
     }
 
+    public void updateExposicao(Exposicao exp){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues value = new ContentValues();
+
+        value.put(IDexp, exp.getID());
+        value.put(VelDisparo, exp.getVelDisparo());
+        value.put(Abertura, exp.getAbertura());
+        value.put(DistFocal, exp.getDistFocal());
+        value.put(DescricaoExp, exp.getDescricao());
+        value.put(DataExp, exp.getData());
+
+        db.update(table_exposicao,value,"IDexp = ?", new String[] {exp.getID()});
+    }
+
     public void removeExposicao(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + table_exposicao);
         db.close();
     }
 
+    public Camera getCamera(int idCamera){
+        String selectQuery = "SELECT * FROM " + table_camera + " WHERE " + IDcam + "=" + idCamera;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        return  new camera(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
+    }
 
     public void addCamera(Camera cam) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -200,6 +264,14 @@ public class DBInterface extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + table_camera);
         db.close();
+    }
+
+    public Objetiva getObjetiva(int idObjetiva){
+        String selectQuery = "SELECT * FROM " + table_objetiva + " WHERE " + IDobj + "=" + idObjetiva;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        return  new objetiva(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
     }
 
     public void addObjetiva (Objetiva obj){
