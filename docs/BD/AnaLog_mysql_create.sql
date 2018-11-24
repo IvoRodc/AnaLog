@@ -8,7 +8,7 @@ CREATE TABLE `Camera` (
 CREATE TABLE `Rolo` (
 	`IDrolo` INT NOT NULL AUTO_INCREMENT,
 	`Titulo` varchar(20) NOT NULL,
-	`ISO` FLOAT,
+	`ISO` INT,
 	`Formato` INT,
 	`NExposicoes` INT NOT NULL,
 	`Descricao` TEXT,
@@ -20,9 +20,9 @@ CREATE TABLE `Rolo` (
 
 CREATE TABLE `Exposicao` (
 	`IDexp` INT NOT NULL AUTO_INCREMENT,
-	`VelDisparo` FLOAT,
+	`VelDisparo` INT,
 	`Abertura` FLOAT,
-	`DistFocal` FLOAT,
+	`DistFocal` INT,
 	`Descricao` TEXT,
 	`Data` DATE NOT NULL,
 	`IDrolo` INT NOT NULL,
