@@ -1,4 +1,4 @@
-package pt.isec.gps.grupo14.analog.Classes;
+package pt.isec.gps.grupo14.analog.AnaLog;
 
 public class Objetiva {
     private int idObjetiva;

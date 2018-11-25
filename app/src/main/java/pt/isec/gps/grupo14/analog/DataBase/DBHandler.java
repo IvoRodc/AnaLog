@@ -1,4 +1,4 @@
-package pt.isec.gps.grupo14.analog.Classes;
+package pt.isec.gps.grupo14.analog.DataBase;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,11 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import java.util.HashMap;
-import java.util.Map;
 
-public class DBInterface extends SQLiteOpenHelper {
+import pt.isec.gps.grupo14.analog.AnaLog.Camera;
+import pt.isec.gps.grupo14.analog.AnaLog.Exposicao;
+import pt.isec.gps.grupo14.analog.AnaLog.Objetiva;
+import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
+
+public class DBHandler extends SQLiteOpenHelper {
 
     //Versão
     private static final int DB_versao = 1;
@@ -55,7 +58,7 @@ public class DBInterface extends SQLiteOpenHelper {
     //endregion
 
 
-    public DBInterface(Context context){
+    public DBHandler(Context context){
         super(context, DB_name, null, DB_versao);
     }
 
@@ -92,7 +95,6 @@ public class DBInterface extends SQLiteOpenHelper {
         + IDcam + " INTEGER)";
         //endregion
 
-
         //region CREATE_TABLE_EXPOSICAO
         String CREATE_TABLE_EXPOSICAO = "CREATE TABLE IF NOT EXISTS "
                 + table_exposicao + " ("
@@ -120,37 +122,52 @@ public class DBInterface extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //Create table again
-        //onCreate(db);
     }
 
+
+    //region Métodos Rolos
+
+    /**
+     * @param idRolo id do rolo que se pretende receber
+     * @return objeto do tipo Rolo que armazena os dados do rolo prentendido
+     */
     public Rolo getRolo(int idRolo) {
         String selectQuery = "SELECT * FROM " + table_rolo + " WHERE " + IDrolo + "=" + idRolo;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        db.close();
-        return  new rolo(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),
-                cursor.getInt(3),cursor.getInt(4),cursor.getInt(5),
-                cursor.getInt(6),cursor.getInt(7),cursor.getInt(8));
+        if (cursor.getCount() > 0){
+            String getNExposicoes = "SELECT COUNT("+IDexp+") FROM " + table_exposicao + " WHERE "
+                    + IDrolo + "="+idRolo;
+            Cursor countCursor = db.rawQuery(getNExposicoes, null);
+            db.close();
+            return new Rolo(cursor.getInt(0), cursor.getString(1),
+                cursor.getInt(2), cursor.getInt(3),
+                cursor.getInt(4), cursor.getString(5), Boolean.parseBoolean(cursor.getString(6)),
+                cursor.getString(7), cursor.getInt(8), countCursor.getInt(0));
+        } else {
+            db.close();
+            return null;
+        }
     }
 
+    /**
+     * Reutiliza o método getRolo()
+     * @return todos os rolos numa HashMap com key=idRolo que armazena objetos do tipo Rolo
+     */
     public HashMap<Integer, Rolo> getRolos(){
-        String selectQuery = "SELECT * FROM " + table_rolo;
+        String selectQuery = "SELECT "+IDrolo+" FROM " + table_rolo;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         db.close();
 
         if(cursor.getCount()>0){
-            Map<Integer, Rolo> listaRolos = new HashMap<>();
+            HashMap<Integer, Rolo> listaRolos = new HashMap<>();
 
             do{
-                Rolo r =  new rolo(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),
-                        cursor.getInt(3),cursor.getInt(4),cursor.getInt(5),
-                        cursor.getInt(6),cursor.getInt(7),cursor.getInt(8));
-                listaRolos.put(r.getID(), r);
+                //reutiliza o método getRolo para preencher o mapa de Rolos
+                listaRolos.put(cursor.getInt(0), getRolo(cursor.getInt(0)));
             }while(cursor.moveToNext());
-
             return listaRolos;
         }
         else {
@@ -158,85 +175,110 @@ public class DBInterface extends SQLiteOpenHelper {
         }
     }
 
+
+    /**
+     * @param rolo objeto do tipo Rolo a adicionar à base de dados
+     * @return id do rolo adicionado
+     */
     public int addRolo (Rolo rolo){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues value = new ContentValues();
-        value.put(IDrolo, rolo.getID());
         value.put(Titulo, rolo.getTitulo());
-        value.put(ISO, rolo.getISO());
+        value.put(ISO, rolo.getIso());
         value.put(Formato, rolo.getFormato());
         value.put(NExposicoes, rolo.getMaxExposicoes());
         value.put(DescricaoRolo, rolo.getDescricao());
-        value.put(Revelado, rolo.getRevelado());
-        value.put(DataRolo, rolo.getDate());
+        value.put(Revelado, rolo.isRevelado());
+        value.put(DataRolo, rolo.getData());
+        value.put(IDcam, rolo.getIdCamera());
 
         //Insert Row
-        db.insert(table_rolo, null, value);
-
-        String selectQuery = "SELECT " + IDrolo + " FROM " + table_rolo + " ORDER BY 'DESC' ";
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        int idLastInsert = (int)db.insert(table_rolo, null, value);
 
         db.close();
 
-        return cursor.getInt(0);
+        return idLastInsert;
     }
 
-    public void updateRolo(Rolo rolo){
+
+    /**
+     * @param rolo objeto do tipo rolo com os dados a atualizar na base de dados
+     * @return número de linhas afetadas
+     */
+    public int updateRolo(Rolo rolo){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues value = new ContentValues();
 
-        value.put(IDrolo, rolo.getID());
         value.put(Titulo, rolo.getTitulo());
-        value.put(ISO, rolo.getISO());
+        value.put(ISO, rolo.getIso());
         value.put(Formato, rolo.getFormato());
         value.put(NExposicoes, rolo.getMaxExposicoes());
         value.put(DescricaoRolo, rolo.getDescricao());
-        value.put(Revelado, rolo.getRevelado());
-        value.put(DataRolo, rolo.getDate());
+        value.put(Revelado, rolo.isRevelado());
+        value.put(DataRolo, rolo.getData());
+        value.put(IDcam, rolo.getIdCamera());
 
-        db.update(table_rolo, value,"IDrolo= ?", new String [] {rolo.getID()});
-
+        int affectedRows = db.update(table_rolo, value,"IDrolo = ?", new String [] {""+rolo.getIdRolo()});
         db.close();
+
+        return affectedRows;
     }
 
-    public void removeRolo(){
+    /**
+     * @param idRolo id do rolo que se pretende eliminar
+     * @return número de linhas afetadas
+     */
+    public int removeRolo(int idRolo){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + table_rolo);
+        db.delete(table_rolo, IDrolo+"= ?", new String[]{""+idRolo});
+        int affectedRows = db.delete(table_rolo, IDrolo+"= ?", new String[]{""+idRolo});
         db.close();
+        return affectedRows;
     }
 
+    //endregion
+
+    //region Métodos Exposições
+
+    /**
+     * @param idExposicao id da exposição que se pretende obter
+     * @return objeto do tipo Exposicao que armazena os dados da exposição pretendida
+     */
     public Exposicao getExposicao(int idExposicao){
         String selectQuery = "SELECT * FROM " + table_exposicao + " WHERE " + IDexp + "=" + idExposicao;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
         db.close();
 
-        return  new exposicao(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),
-                cursor.getInt(3),cursor.getInt(4),cursor.getInt(5),
-                cursor.getInt(6),cursor.getInt(7));
+        if(cursor.getCount() > 0){
+            return new Exposicao(cursor.getInt(0),cursor.getInt(1),cursor.getFloat(2),
+                    cursor.getInt(3),cursor.getString(4),cursor.getString(5),
+                    cursor.getInt(6),cursor.getInt(7));
+        } else {
+            return null;
+        }
     }
 
-    public HashMap<Integer, Esposicao> getExposicoes(){
-        String selectQuery = "SELECT * FROM " + table_exposicao;
+    /**
+     * Reutiliza o método getExposicao()
+     * @return todos as exposições numa HashMap com key=idExposicao que armazena objetos do tipo Exposicao
+     */
+    public HashMap<Integer, Exposicao> getExposicoes(){
+        String selectQuery = "SELECT "+IDexp+" FROM " + table_exposicao;
         SQLiteDatabase db  = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
 
         db.close();
 
         if(cursor.getCount()>0){
-            Map<Integer, Exposicao> listaExposicoes = new HashMap<>();
+            HashMap<Integer, Exposicao> listaExposicoes = new HashMap<>();
 
             do{
-                Exposicao exp = new exposicao(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),
-                        cursor.getInt(3),cursor.getInt(4),cursor.getInt(5),
-                        cursor.getInt(6),cursor.getInt(7));
-                listaExposicoes.put(exp.getID(),exp);
+                listaExposicoes.put(cursor.getInt(0), getExposicao(cursor.getInt(0)));
             }while(cursor.moveToNext());
-
             return listaExposicoes;
         }
         else {
@@ -244,67 +286,88 @@ public class DBInterface extends SQLiteOpenHelper {
         }
     }
 
+
+    /**
+     * @param exp objeto do tipo Exposicao a adicionar à base de dados
+     * @return id da exposição adicionada
+     */
     public int addExposicao(Exposicao exp){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues value = new ContentValues();
 
-        value.put(IDexp, exp.getID());
         value.put(VelDisparo, exp.getVelDisparo());
         value.put(Abertura, exp.getAbertura());
         value.put(DistFocal, exp.getDistFocal());
         value.put(DescricaoExp, exp.getDescricao());
         value.put(DataExp, exp.getData());
+        value.put(IDrolo, exp.getIdRolo());
+        value.put(IDobj, exp.getIdObjetiva());
 
         //Insert Row
-        db.insert(table_exposicao,null,value);
-
-        String selectQuery = "SELECT " + IDexp + " FROM " + table_exposicao + " ORDER BY 'DESC' ";
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
+        int idExposicao = (int)db.insert(table_exposicao,null, value);
         db.close();
 
-        return cursor.getInt(0);
+        return idExposicao;
     }
 
-    public void updateExposicao(Exposicao exp){
+    /**
+     * @param exp objeto do tipo Exposicao com os dados a atualizar na base de dados
+     * @return nº de linhas afetadas
+     */
+    public int updateExposicao(Exposicao exp){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues value = new ContentValues();
 
-        value.put(IDexp, exp.getID());
         value.put(VelDisparo, exp.getVelDisparo());
         value.put(Abertura, exp.getAbertura());
         value.put(DistFocal, exp.getDistFocal());
         value.put(DescricaoExp, exp.getDescricao());
         value.put(DataExp, exp.getData());
+        value.put(IDrolo, exp.getIdRolo());
+        value.put(IDobj, exp.getIdObjetiva());
 
-        db.update(table_exposicao,value,"IDexp = ?", new String[] {exp.getID()});
-
+        int affectedRows = db.update(table_exposicao,value,"IDexp = ?", new String[] {""+exp.getIdExposicao()});
         db.close();
+
+        return affectedRows;
     }
 
-    public void removeExposicao(){
+    /**
+     * @param idExposicao id da exposição que se pretende eliminar
+     * @return nº de linhas afetadas
+     */
+    public int removeExposicao(int idExposicao){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + table_exposicao);
+        int affectedRows = db.delete(table_exposicao, IDexp + "= ?", new String[]{""+idExposicao});
         db.close();
+        return affectedRows;
     }
 
+    //endregion
 
-    //-------------- Cameras
+    //region Métodos Cameras
 
+    /**
+     * @param idCamera id da camera que se pretende receber
+     * @return objeto do tipo Camera que armazena os dados da Camera pretendida
+     */
     public Camera getCamera(int idCamera){
         String selectQuery = "SELECT * FROM " + table_camera + " WHERE " + IDcam + "=" + idCamera;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
         db.close();
 
         return  new Camera(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
     }
 
+    /**
+     * Reutiliza o método getCamera()
+     * @return todos as cameras numa HashMap com key=idCamera que armazena objetos do tipo Camera
+     */
     public HashMap<Integer, Camera> getCameras(){
-        String selectQuery = "SELECT * FROM " + table_camera;
+        String selectQuery = "SELECT "+ IDcam +" FROM " + table_camera;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
         db.close();
@@ -313,10 +376,8 @@ public class DBInterface extends SQLiteOpenHelper {
             HashMap<Integer, Camera> listaCameras = new HashMap<>();
 
             do{
-                Camera cam = new Camera(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
-                listaCameras.put(cam.getIdCamera(),cam);
+                listaCameras.put(cursor.getInt(0),getCamera(cursor.getInt(0)));
             }while(cursor.moveToNext());
-
             return listaCameras;
         }
         else {
@@ -324,7 +385,11 @@ public class DBInterface extends SQLiteOpenHelper {
         }
     }
 
-    public void addCamera(Camera cam) {
+    /**
+     * @param cam objeto do tipo Camera para registar na base de dados
+     * @return id da camera registada
+     */
+    public int addCamera(Camera cam) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues value = new ContentValues();
@@ -333,19 +398,31 @@ public class DBInterface extends SQLiteOpenHelper {
         value.put(ModeloCam, cam.getModelo());
 
         //Insert Row
-        db.insert(table_camera, null, value);
+        int idCamera = (int)db.insert(table_camera, null, value);
         db.close();
+
+        return idCamera;
     }
 
-    public void removeCamera(int idCamera){
+    /**
+     * @param idCamera id da camera que se pretende eliminar
+     * @return nº de linhas afetadas
+     */
+    public int removeCamera(int idCamera){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + table_camera + " WHERE " + IDobj + "=" + idCamera);
+        int affectedRows = db.delete(table_camera, IDcam+"= ?", new String[]{""+idCamera});
         db.close();
+        return affectedRows;
     }
 
+    //endregion
 
-    //-------------- Objetivas
+    //region Métodos Objetivas
 
+    /**
+     * @param idObjetiva id da objetiva que se pretende receber
+     * @return objeto do tipo Objetiva que armazena os dados da objetiva pretendida
+     */
     public Objetiva getObjetiva(int idObjetiva){
         String selectQuery = "SELECT * FROM " + table_objetiva + " WHERE " + IDobj + "=" + idObjetiva;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -356,6 +433,10 @@ public class DBInterface extends SQLiteOpenHelper {
         return  new Objetiva(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
     }
 
+    /**
+     * Reutiliza o método getObjetiva()
+     * @return todos as objetivas numa HashMap com key=idObjetiva que armazena objetos do tipo Objetiva
+     */
     public HashMap<Integer, Objetiva> getObjetivas(){
         String selectQuery = "SELECT * FROM " + table_objetiva;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -377,6 +458,10 @@ public class DBInterface extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * @param obj objeto do tipo Objetiva para registar na base de dados
+     * @return id da objetiva registada
+     */
     public int addObjetiva (Objetiva obj){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -394,9 +479,17 @@ public class DBInterface extends SQLiteOpenHelper {
         return cursor.getInt(0);
     }
 
-    public void removeObjetiva(int idObj){
+    /**
+     * @param idObj id da objetiva que se pretende eliminar
+     * @return nº de linhas afetadas
+     */
+    public int removeObjetiva(int idObj){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + table_objetiva + " WHERE "+IDobj +"="+idObj);
+        int affectedRows = db.delete(table_objetiva, IDobj+"= ?", new String[]{""+idObj});
         db.close();
+
+        return affectedRows;
     }
+
+    //endregion
 }

@@ -1,6 +1,8 @@
-package pt.isec.gps.grupo14.analog.Classes;
+package pt.isec.gps.grupo14.analog.AnaLog;
 
 import java.util.HashMap;
+
+import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
 public class GestorExposicoes {
 
@@ -8,7 +10,7 @@ public class GestorExposicoes {
     int idRolo;
 
     public GestorExposicoes() {
-        this.listaExposicoes = new DBInterface().getExposicoes();
+        this.listaExposicoes = new DBHandler().getExposicoes();
     }
 
     public Exposicao getExposicoes(int idExposicao)

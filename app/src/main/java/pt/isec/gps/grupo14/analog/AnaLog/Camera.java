@@ -1,16 +1,16 @@
-package pt.isec.gps.grupo14.analog.Classes;
+package pt.isec.gps.grupo14.analog.AnaLog;
 
 public class Camera {
     private int idCamera;
     private String marca;
     private String modelo;
 
-    Camera(String marca, String modelo){
+    public Camera(String marca, String modelo){
         this.marca = marca;
         this.modelo = modelo;
     }
 
-    Camera(int idCamera, String marca, String modelo){
+    public Camera(int idCamera, String marca, String modelo){
         this.idCamera = idCamera;
         this.marca = marca;
         this.modelo = modelo;
