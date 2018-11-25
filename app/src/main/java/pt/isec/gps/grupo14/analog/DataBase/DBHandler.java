@@ -92,7 +92,9 @@ public class DBHandler extends SQLiteOpenHelper {
         + DescricaoRolo + " TEXT,"
         + Revelado + " BOOLEAN,"
         + DataRolo + " DATE,"
-        + IDcam + " INTEGER)";
+        + IDcam + " INTEGER,"
+        + "FOREIGN KEY (" + IDcam + ") REFERENCES "
+        + table_camera + "(" + IDcam + "))";
         //endregion
 
         //region CREATE_TABLE_EXPOSICAO
@@ -105,7 +107,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 + DescricaoExp + " TEXT,"
                 + DataExp + " DATE,"
                 + IDrolo + "INTEGER, "
-                + IDobj + "INTEGER)";
+                + IDobj + "INTEGER,"
+                + "FOREIGN KEY (" + IDrolo + ") REFERENCES "
+                + table_rolo + "(" + IDrolo + "),"
+                + "FOREIGN KEY (" + IDobj + ") REFERENCES "
+                + table_objetiva + "(" + IDobj + "))";
         //endregion
 
         Log.w("Camera ->", CREATE_TABLE_CAMERA);
@@ -118,6 +124,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_ROLO);
         db.execSQL(CREATE_TABLE_EXPOSICAO);
 
+        db.close();
     }
 
     @Override
