@@ -1,10 +1,9 @@
 package pt.isec.gps.grupo14.analog;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_AddRolo;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -18,6 +17,8 @@ import android.widget.Toast;
 import com.google.android.material.bottomappbar.BottomAppBar;
 
 public class RolosActivity extends AppCompatActivity {
+
+    BottomSheet_AddRolo bottomSheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,14 @@ public class RolosActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.Adapter adapter = new ListaRolosAdapter();
         recyclerView.setAdapter(adapter);
+
+        bottomSheet = new BottomSheet_AddRolo();
+    }
+
+    public void onClickAddRolo(View v){
+        if(!bottomSheet.isOpen()){
+            bottomSheet.show(getSupportFragmentManager(), "BottomSheet_AddRolo");
+        }
     }
 
     @Override
@@ -47,10 +56,6 @@ public class RolosActivity extends AppCompatActivity {
                 drawable.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
             }
         }
-
-        /*Drawable drawable = menu.findItem(R.id.menu_rolos_settings).getIcon();
-        DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.white));
-        menu.findItem(R.id.menu_rolos_settings).setIcon(drawable);*/
         return true;
     }
 
