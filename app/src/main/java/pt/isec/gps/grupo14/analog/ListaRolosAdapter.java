@@ -8,14 +8,23 @@ import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
+import pt.isec.gps.grupo14.analog.AnaLog.Camera;
+import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
+import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
 public class ListaRolosAdapter extends RecyclerView.Adapter {
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    ArrayList<Rolo> listaRolos;
+    DBHandler db;
 
+    class ViewHolder extends RecyclerView.ViewHolder{
+        Integer idRolo;
         AppCompatTextView nFotos;
         AppCompatTextView nomeRolo;
         AppCompatTextView nomeCamera;
@@ -33,12 +42,17 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
             descRolo = itemView.findViewById(R.id.descricao_rolo);
 
 
+
+        }
+
+        public void setId(int id){
+            idRolo=id;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //Mudar atividade
                     Intent intent = new Intent(itemView.getContext(), ExposicaoActivity.class);
-                    //intent.putExtra("idrolo", idrolo);
+                    intent.putExtra("idrolo", idRolo);
                     itemView.getContext().startActivity(intent);
                 }
             });
@@ -52,6 +66,8 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
                 .inflate(R.layout.rolos_card_layout, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
+        db = new DBHandler(parent.getContext());
+        listaRolos=new ArrayList<>(db.getRolos().values());
 
         return viewHolder;
     }
@@ -59,17 +75,20 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         // Obter dados da base de dados
-        // Substituir o texto
-        ((ViewHolder)viewHolder).nFotos.setText("0 / 32");
-        ((ViewHolder)viewHolder).nomeRolo.setText("Rolo 1");
-        ((ViewHolder)viewHolder).nomeCamera.setText("Camera + Modelo");
-        ((ViewHolder)viewHolder).dataCriacao.setText("31 Jan 2018");
-        ((ViewHolder)viewHolder).descRolo.setText("Descrição concisa da cena");
+        Rolo r = listaRolos.get(position);
+        //Camera c = db.getCamera(r.getIdCamera());
+        ((ViewHolder)viewHolder).nFotos.setText(r.getnExposicoes() + "/" + r.getMaxExposicoes());
+        ((ViewHolder)viewHolder).nomeRolo.setText(r.getTitulo());
+        //((ViewHolder)viewHolder).nomeCamera.setText(c.getMarca()+ " " +c.getModelo());
+        ((ViewHolder)viewHolder).nomeCamera.setText("CAmera");
+        ((ViewHolder)viewHolder).dataCriacao.setText(r.getData());
+        ((ViewHolder)viewHolder).descRolo.setText(r.getDescricao());
+        ((ViewHolder)viewHolder).setId(r.getIdRolo());
     }
 
     @Override
     public int getItemCount() {
         //return size of hashmap
-        return 10;
+        return 1;
     }
 }

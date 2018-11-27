@@ -6,11 +6,24 @@ import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
+import pt.isec.gps.grupo14.analog.AnaLog.Exposicao;
+import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
 public class ListaExpAdapter extends RecyclerView.Adapter{
+
+    DBHandler db;
+    ArrayList<Exposicao> ListaExp;
+    int idRolo;
+
+    ListaExpAdapter (int idRolo){
+
+        this.idRolo= idRolo;
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -21,7 +34,6 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
 
             dataFoto = itemView.findViewById(R.id.Card_data_foto);
             descFoto = itemView.findViewById(R.id.Card_Desc_Foto);
@@ -37,6 +49,7 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
         }
     }
 
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,7 +57,8 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
                 .inflate(R.layout.exposicoes_card_layout, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
-
+        db = new DBHandler(parent.getContext());
+        ListaExp=new ArrayList<>(db.getExposicoes(idRolo).values());
         return viewHolder;
     }
 
@@ -53,15 +67,16 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
         // Obter dados da base de dados
         // Substituir o texto
 
-        ((ViewHolder)viewHolder).nomeFoto.setText("Foto 1");
+        Exposicao e = ListaExp.get(position);
+        ((ViewHolder)viewHolder).nomeFoto.setText("Foto"+ position);
 
-        ((ViewHolder)viewHolder).dataFoto.setText("31 Fev 2018");
-        ((ViewHolder)viewHolder).descFoto.setText("Descrição concisa da foto");
+        ((ViewHolder)viewHolder).dataFoto.setText(e.getData());
+        ((ViewHolder)viewHolder).descFoto.setText(e.getDescricao());
     }
 
     @Override
     public int getItemCount() {
         //return size of hashmap
-        return 10;
+        return ListaExp.size();
     }
 }

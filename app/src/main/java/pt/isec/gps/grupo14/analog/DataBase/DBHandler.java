@@ -32,7 +32,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String table_objetiva = "Objetiva";
     private static final String IDobj = "IDobj";
     private static final String MarcaObj = "Marca";
-    private static final String ModeloObj = "Marca";
+    private static final String ModeloObj = "Modelo";
     //endregion
 
     //region TABELA ROLO
@@ -55,6 +55,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String DistFocal = "DistFocal";
     private static final String DescricaoExp = "Descricao";
     private static final String DataExp = "Data";
+
     //endregion
 
 
@@ -68,7 +69,7 @@ public class DBHandler extends SQLiteOpenHelper {
         //region CREATE_TABLE_CAMERA
         String CREATE_TABLE_CAMERA = "CREATE TABLE IF NOT EXISTS "
                 + table_camera + " ("
-                + IDcam + "INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + IDcam + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + MarcaCam +  " VARCHAR(20), "
                 + ModeloCam + " VARCHAR(20))";
         //endregion
@@ -76,7 +77,7 @@ public class DBHandler extends SQLiteOpenHelper {
         //region CREATE_TABLE_OBJETIVA
         String CREATE_TABLE_OBJETIVA = "CREATE TABLE IF NOT EXISTS "
                 + table_objetiva + " ("
-                + IDobj + "INTEGER,"
+                + IDobj + " INTEGER,"
                 + MarcaObj + " VARCHAR(20),"
                 + ModeloObj + " VARCHAR(20))";
         //endregion
@@ -84,7 +85,7 @@ public class DBHandler extends SQLiteOpenHelper {
         //region CREATE_TABLE_ROLO
         String CREATE_TABLE_ROLO = "CREATE TABLE IF NOT EXISTS "
         + table_rolo + " ("
-        + IDrolo + "INTEGER PRIMARY KEY AUTOINCREMENT, "
+        + IDrolo + " INTEGER PRIMARY KEY AUTOINCREMENT, "
         + Titulo + " VARCHAR(20),"
         + ISO + " INTEGER,"
         + Formato + " INTEGER,"
@@ -97,17 +98,18 @@ public class DBHandler extends SQLiteOpenHelper {
         + table_camera + "(" + IDcam + "))";
         //endregion
 
+
         //region CREATE_TABLE_EXPOSICAO
         String CREATE_TABLE_EXPOSICAO = "CREATE TABLE IF NOT EXISTS "
                 + table_exposicao + " ("
-                + IDexp + " INTEGER, "
+                + IDexp + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + VelDisparo + " INTEGER,"
                 + Abertura + " FLOAT,"
                 + DistFocal + " INTEGER,"
                 + DescricaoExp + " TEXT,"
                 + DataExp + " DATE,"
-                + IDrolo + "INTEGER, "
-                + IDobj + "INTEGER,"
+                + IDrolo + " INTEGER, "
+                + IDobj + " INTEGER,"
                 + "FOREIGN KEY (" + IDrolo + ") REFERENCES "
                 + table_rolo + "(" + IDrolo + "),"
                 + "FOREIGN KEY (" + IDobj + ") REFERENCES "
@@ -123,6 +125,9 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_OBJETIVA);
         db.execSQL(CREATE_TABLE_ROLO);
         db.execSQL(CREATE_TABLE_EXPOSICAO);
+
+
+
 
         db.close();
     }
@@ -166,7 +171,7 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT "+IDrolo+" FROM " + table_rolo;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        db.close();
+
 
         if(cursor.getCount()>0){
             HashMap<Integer, Rolo> listaRolos = new HashMap<>();
@@ -175,9 +180,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 //reutiliza o método getRolo para preencher o mapa de Rolos
                 listaRolos.put(cursor.getInt(0), getRolo(cursor.getInt(0)));
             }while(cursor.moveToNext());
+            db.close();
             return listaRolos;
         }
         else {
+            db.close();
             return null;
         }
     }
@@ -273,8 +280,8 @@ public class DBHandler extends SQLiteOpenHelper {
      * Reutiliza o método getExposicao()
      * @return todos as exposições numa HashMap com key=idExposicao que armazena objetos do tipo Exposicao
      */
-    public HashMap<Integer, Exposicao> getExposicoes(){
-        String selectQuery = "SELECT "+IDexp+" FROM " + table_exposicao;
+    public HashMap<Integer, Exposicao> getExposicoes(int idR){
+        String selectQuery = "SELECT "+IDexp+" FROM " + table_exposicao + " WHERE " + IDrolo + "=" + idR ;
         SQLiteDatabase db  = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
 

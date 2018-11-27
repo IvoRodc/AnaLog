@@ -12,7 +12,7 @@ public class GestorExposicoes {
     int idRolo;
 
     public GestorExposicoes(Context context) {
-        this.listaExposicoes = new DBHandler(context).getExposicoes();
+        //this.listaExposicoes = new DBHandler(context).getExposicoes();
     }
 
     public Exposicao getExposicoes(int idExposicao)
