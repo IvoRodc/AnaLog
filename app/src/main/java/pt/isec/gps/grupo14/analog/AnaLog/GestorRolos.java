@@ -1,17 +1,15 @@
 package pt.isec.gps.grupo14.analog.AnaLog;
 
-import android.content.Context;
-
 import java.util.HashMap;
 
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
 public class GestorRolos {
 
-    HashMap<Integer,Rolo> listaRolos;
+    HashMap<int,Rolo> listaRolos;
 
-    public GestorRolos(Context context) {
-        this.listaRolos = new DBHandler(context).getRolos();
+    public GestorRolos() {
+        this.listaRolos = new DBHandler().getRolos();
     }
 
     public Rolo getRolo(int idRolo)
@@ -23,7 +21,7 @@ public class GestorRolos {
 
     public void addRolo(Rolo rolo)
     {
-        this.listaRolos.put(rolo.getIdRolo(),rolo);
+        this.listaRolos.put(rolo.getId(),rolo);
     }
 
     public int getNRolos()
@@ -33,6 +31,6 @@ public class GestorRolos {
 
     public int updateDB()
     {
-        return 0;
+
     }
 }
