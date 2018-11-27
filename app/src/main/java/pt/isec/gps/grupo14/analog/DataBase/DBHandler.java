@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import pt.isec.gps.grupo14.analog.AnaLog.Camera;
@@ -129,7 +131,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
 
-        db.close();
+        //db.close();
     }
 
     @Override
@@ -152,11 +154,15 @@ public class DBHandler extends SQLiteOpenHelper {
             String getNExposicoes = "SELECT COUNT("+IDexp+") FROM " + table_exposicao + " WHERE "
                     + IDrolo + "="+idRolo;
             Cursor countCursor = db.rawQuery(getNExposicoes, null);
-            db.close();
-            return new Rolo(cursor.getInt(0), cursor.getString(1),
+            countCursor.moveToFirst();
+            cursor.moveToFirst();
+            Rolo r=new Rolo(cursor.getInt(0), cursor.getString(1),
                 cursor.getInt(2), cursor.getInt(3),
                 cursor.getInt(4), cursor.getString(5), Boolean.parseBoolean(cursor.getString(6)),
                 cursor.getString(7), cursor.getInt(8), countCursor.getInt(0));
+
+            db.close();
+            return r;
         } else {
             db.close();
             return null;
@@ -171,20 +177,26 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT "+IDrolo+" FROM " + table_rolo;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        ArrayList<Integer> ids = new ArrayList<>();
+        do{
+            ids.add(cursor.getInt(0));
+        }while (cursor.moveToNext());
 
+        db.close();
 
         if(cursor.getCount()>0){
             HashMap<Integer, Rolo> listaRolos = new HashMap<>();
 
-            do{
+            for(int i=0; i< ids.size(); i++){
                 //reutiliza o método getRolo para preencher o mapa de Rolos
-                listaRolos.put(cursor.getInt(0), getRolo(cursor.getInt(0)));
-            }while(cursor.moveToNext());
-            db.close();
+                listaRolos.put(ids.get(i), getRolo(ids.get(i)));
+            };
+
             return listaRolos;
         }
         else {
-            db.close();
+
             return null;
         }
     }

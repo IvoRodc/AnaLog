@@ -37,7 +37,7 @@ public class Rolo {
         this.idRolo = new DBHandler(context).addRolo(this);
     }
 
-    public Rolo(int id, String titulo, float iso, int formato, int maxExposicoes, String descricao,
+    public Rolo(int id, String titulo, int iso, int formato, int maxExposicoes, String descricao,
                 boolean revelado, String data, int idCamera, int nExposicoes) {
         this.idRolo = id;
         this.titulo = titulo;

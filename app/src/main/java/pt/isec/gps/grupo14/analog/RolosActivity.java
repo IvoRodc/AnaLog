@@ -1,9 +1,12 @@
 package pt.isec.gps.grupo14.analog;
 
 import androidx.appcompat.app.AppCompatActivity;
+import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_AddRolo;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_AddRolo;
+import pt.isec.gps.grupo14.analog.AnaLog.Exposicao;
+import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
+import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -18,12 +21,18 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 
 public class RolosActivity extends AppCompatActivity {
 
+
     BottomSheet_AddRolo bottomSheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rolos);
+
+
+        BottomSheet_AddRolo bottomSheet;
+
+
 
         BottomAppBar bab = findViewById(R.id.app_bar_bottom);
         setSupportActionBar(bab);
