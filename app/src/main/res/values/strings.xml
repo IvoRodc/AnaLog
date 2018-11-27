@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Analog</string>
-
+    <string name="menu_titulo_settings">Definições</string>
+    <string name="menu_titulo_pesquisa">Pesquisar</string>
 
     <!-- Strings activity_rolos -->
     <string name="titulo_activity_rolos">Meus Rolos</string>
+
+    <!-- Strings activity_exposiçao -->
     <string name="titulo_activity_exposicao">Rolo #</string>
 </resources>
