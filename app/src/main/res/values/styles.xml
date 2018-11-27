@@ -6,14 +6,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:background">@color/white</item>
+        <item name="background">@color/white</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
     <style name="AppTheme.splashScreen" parent="AppTheme">
         <item name="android:windowBackground">@color/blue300</item>
         <item name="android:navigationBarColor">@color/blue300</item>
         <item name="android:statusBarColor">@color/blue300</item>
-        <item name="android:background">@color/blue300</item>
+        <item name="background">@color/blue300</item>
     </style>
 
     <style name="AppTheme.Title" parent="AppTheme">
@@ -22,4 +23,5 @@
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textStyle">bold</item>
     </style>
+
 </resources>
