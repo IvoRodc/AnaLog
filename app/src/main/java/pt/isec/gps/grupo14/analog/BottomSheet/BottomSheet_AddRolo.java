@@ -57,6 +57,13 @@ public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
                         Integer.parseInt(Nexp.getText().toString()),Desc.getText().toString(),
                         Integer.parseInt(Camera.getText().toString()), getContext());
 
+                Titulo.setText("");
+                Camera.setText("");
+                ISO.setText("");
+                Nexp.setText("");
+                Formato.setText("");
+                Desc.setText("");
+
                 dismiss();
                 ((ListaRolosAdapter)((RecyclerView)(getActivity().findViewById(R.id.lista_rolos))).getAdapter()).addNewRolo(r);
             }
