@@ -8,6 +8,8 @@ import pt.isec.gps.grupo14.analog.AnaLog.Exposicao;
 import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,9 +19,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class RolosActivity extends AppCompatActivity {
 
@@ -43,6 +47,13 @@ public class RolosActivity extends AppCompatActivity {
 
         bottomSheet = new BottomSheet_AddRolo();
 
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 
     public void onClickAddRolo(View v){
@@ -80,5 +91,50 @@ public class RolosActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void onClickDialogISO(View view){
+        final String[] isos = getResources().getStringArray(R.array.ISO_values);
+        final View v = view;
+        AlertDialog.Builder ad = new AlertDialog.Builder(RolosActivity.this);
+        ad.setTitle("Escolha o ISO");
+
+        ad.setSingleChoiceItems(R.array.ISO_values, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ((TextInputEditText)v.findViewById(R.id.ISO_New_Rolo)).setText(isos[which]);
+            }
+        });
+        ad.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        ad.show();
+    }
+
+    public void onClickDialogFormato(View view){
+        final String[] formatos = getResources().getStringArray(R.array.formato_values);
+        final View v = view;
+        AlertDialog.Builder ad = new AlertDialog.Builder(RolosActivity.this);
+        ad.setTitle("Escolha o formato");
+
+        ad.setSingleChoiceItems(R.array.formato_values, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String x = formatos[which];
+                ((TextInputEditText)v.findViewById(R.id.Formato_New_Rolo)).setText(x);
+            }
+        });
+        ad.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        ad.show();
     }
 }

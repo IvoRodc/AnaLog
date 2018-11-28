@@ -1,19 +1,19 @@
 package pt.isec.gps.grupo14.analog.BottomSheet;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.annotation.NonNull;
@@ -23,13 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
 import pt.isec.gps.grupo14.analog.ListaRolosAdapter;
 import pt.isec.gps.grupo14.analog.R;
-import pt.isec.gps.grupo14.analog.RolosActivity;
-import pt.isec.gps.grupo14.analog.SplashActivity;
 
 public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
 
     private boolean open;
-
+    View v;
 
     @Nullable
     @Override
@@ -40,11 +38,11 @@ public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.bottom_sheet_add_rolo, container, false);
+        v = inflater.inflate(R.layout.bottom_sheet_add_rolo, container, false);
         Button button = (Button) v.findViewById(R.id.Btn_New_Rolo);
         final TextInputEditText Titulo = (TextInputEditText)v.findViewById(R.id.Titulo_New_Rolo);
         final TextInputEditText Camera = (TextInputEditText)v.findViewById(R.id.IDCAM_New_Rolo);
-        final TextInputEditText ISO = (TextInputEditText)v.findViewById(R.id.ISO_New_Rolo);
+        final TextView ISO = (TextInputEditText)v.findViewById(R.id.ISO_New_Rolo);
         final TextInputEditText Nexp = (TextInputEditText)v.findViewById(R.id.NExp_New_Rolo);
         final TextInputEditText Formato = (TextInputEditText)v.findViewById(R.id.Formato_New_Rolo);
         final TextInputEditText Desc = (TextInputEditText)v.findViewById(R.id.Desc_New_Rolo);
@@ -97,4 +95,7 @@ public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
         return open;
     }
 
+
+
 }
+
