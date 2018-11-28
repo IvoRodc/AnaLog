@@ -29,11 +29,9 @@ public class Rolo {
         this.maxExposicoes = maxExposicoes;
         this.descricao = descricao;
         this.idCamera = idCamera;
-
         this.nExposicoes = 0;
         this.data = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         this.revelado = false;
-
         this.idRolo = new DBHandler(context).addRolo(this);
     }
 
@@ -91,12 +89,11 @@ public class Rolo {
         return nExposicoes;
     }
 
-    public int updateRolo(String titulo, float iso, int form, int nExp, int max, String desc,
+    public int updateRolo(String titulo, int iso, int form, int max, String desc,
                           boolean rev, int idCamera, Context context) {
         this.titulo = titulo;
         this.iso = iso;
         this.formato = form;
-        this.nExposicoes = nExp;
         this.maxExposicoes = max;
         this.descricao = desc;
         this.revelado = rev;
