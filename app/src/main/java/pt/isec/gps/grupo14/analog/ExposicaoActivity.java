@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import pt.isec.gps.grupo14.analog.AnaLog.Camera;
 import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
+import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_AddExp;
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
 import android.content.Intent;
@@ -16,6 +17,9 @@ import android.view.View;
 import android.widget.TextView;
 
 public class ExposicaoActivity extends AppCompatActivity {
+
+        BottomSheet_AddExp bottomSheet;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,5 +76,16 @@ public class ExposicaoActivity extends AppCompatActivity {
         RecyclerView.Adapter adapter = new ListaExpAdapter(IDRolo, this);
 
         recyclerView.setAdapter(adapter);
+
+        bottomSheet = new BottomSheet_AddExp();
+        Bundle bundle = new Bundle();
+        bundle.putInt("IDrolo", IDRolo);
+        bottomSheet.setArguments(bundle);
+    }
+
+    public void onClickAddExp(View v){
+        if(!bottomSheet.isOpen()){
+            bottomSheet.show(getSupportFragmentManager(), "BottomSheet_AddRolo");
+        }
     }
 }

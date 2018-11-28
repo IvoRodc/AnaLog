@@ -139,7 +139,9 @@
         app:srcCompat="@drawable/ic_round_add"
         android:tint="@color/white"
         app:fabCustomSize="56dp"
-        app:backgroundTint="@color/blue500"/>
+        app:backgroundTint="@color/blue500"
+        android:onClick="onClickAddExp"/>
+
 
 
 

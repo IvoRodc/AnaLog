@@ -1,6 +1,7 @@
 package pt.isec.gps.grupo14.analog;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,12 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
 
         this.idRolo= idRolo;
         db = new DBHandler(context);
-        ListaExp=new ArrayList<>(db.getExposicoes(idRolo).values());
+        ListaExp=new ArrayList<>();
+        try {
+            ListaExp=new ArrayList<>(db.getExposicoes(idRolo).values());
+        }catch (NullPointerException exception){
+            Log.d("ANALOG LOG", "BASE DE DADOS VAZIA");
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
