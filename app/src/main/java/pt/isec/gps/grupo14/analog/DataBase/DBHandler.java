@@ -277,12 +277,14 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM " + table_exposicao + " WHERE " + IDexp + "=" + idExposicao;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        Exposicao e= new Exposicao(cursor.getInt(0),cursor.getInt(1),cursor.getFloat(2),
+                cursor.getInt(3),cursor.getString(4),cursor.getString(5),
+                cursor.getInt(6),cursor.getInt(7));
         db.close();
 
         if(cursor.getCount() > 0){
-            return new Exposicao(cursor.getInt(0),cursor.getInt(1),cursor.getFloat(2),
-                    cursor.getInt(3),cursor.getString(4),cursor.getString(5),
-                    cursor.getInt(6),cursor.getInt(7));
+            return e;
         } else {
             return null;
         }
@@ -296,8 +298,8 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT "+IDexp+" FROM " + table_exposicao + " WHERE " + IDrolo + "=" + idR ;
         SQLiteDatabase db  = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
+        cursor.moveToFirst();
 
-        db.close();
 
         if(cursor.getCount()>0){
             HashMap<Integer, Exposicao> listaExposicoes = new HashMap<>();
@@ -305,9 +307,11 @@ public class DBHandler extends SQLiteOpenHelper {
             do{
                 listaExposicoes.put(cursor.getInt(0), getExposicao(cursor.getInt(0)));
             }while(cursor.moveToNext());
+            db.close();
             return listaExposicoes;
         }
         else {
+            db.close();
             return null;
         }
     }

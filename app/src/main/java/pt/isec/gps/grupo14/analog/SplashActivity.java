@@ -26,8 +26,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         //TESTE APENAS
-        Rolo r = new Rolo("TESTE",400, 35, 36, "Teste de rolo e cenas", 0 , this );
-        Exposicao e = new Exposicao(1, 100, 100, "Teste exp", 1, 0, this);
+       // Rolo r = new Rolo("TESTE",400, 35, 36, "Teste de rolo e cenas", 0 , this );
+        //Exposicao e = new Exposicao(1, 100, 100, "Teste exp", 1, 0, this);
+
 
 
 

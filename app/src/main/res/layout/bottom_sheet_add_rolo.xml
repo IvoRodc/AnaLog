@@ -20,6 +20,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
+            android:id="@+id/Titulo_New_Rolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -35,6 +36,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
+            android:id="@+id/IDCAM_New_Rolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -50,6 +52,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
+            android:id="@+id/ISO_New_Rolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -61,10 +64,11 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Push / Pull">
+        android:hint="Numero de Exposições">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
+            android:id="@+id/NExp_New_Rolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -80,6 +84,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
+            android:id="@+id/Formato_New_Rolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -95,6 +100,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
+            android:id="@+id/Desc_New_Rolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -109,6 +115,7 @@
         android:layout_marginBottom="10dp">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/Btn_New_Rolo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Guardar"

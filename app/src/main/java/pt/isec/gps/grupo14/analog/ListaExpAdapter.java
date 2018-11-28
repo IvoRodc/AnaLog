@@ -1,5 +1,6 @@
 package pt.isec.gps.grupo14.analog;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,11 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
     ArrayList<Exposicao> ListaExp;
     int idRolo;
 
-    ListaExpAdapter (int idRolo){
+    ListaExpAdapter (int idRolo, Context context){
 
         this.idRolo= idRolo;
+        db = new DBHandler(context);
+        ListaExp=new ArrayList<>(db.getExposicoes(idRolo).values());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -57,8 +60,7 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
                 .inflate(R.layout.exposicoes_card_layout, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
-        db = new DBHandler(parent.getContext());
-        ListaExp=new ArrayList<>(db.getExposicoes(idRolo).values());
+
         return viewHolder;
     }
 

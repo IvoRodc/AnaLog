@@ -26,7 +26,7 @@ public class ExposicaoActivity extends AppCompatActivity {
         int IDRolo=-1;
         Intent intent = getIntent();
         DBHandler db = new DBHandler(this);
-        Rolo rolo= db.getRolo(IDRolo);
+
 
         if (intent != null) {
             IDRolo = intent.getIntExtra("idrolo", -1); //Get id rolo
@@ -34,7 +34,7 @@ public class ExposicaoActivity extends AppCompatActivity {
         {
             finish();
         }
-
+        Rolo rolo= db.getRolo(IDRolo);
         //TOOLBAR config
        Toolbar Toolbar = findViewById(R.id.toolbar);
        Toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -69,7 +69,7 @@ public class ExposicaoActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.lista_exposicoes);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter adapter = new ListaExpAdapter(IDRolo);
+        RecyclerView.Adapter adapter = new ListaExpAdapter(IDRolo, this);
 
         recyclerView.setAdapter(adapter);
     }

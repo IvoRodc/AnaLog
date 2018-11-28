@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -29,11 +30,6 @@ public class RolosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rolos);
 
-
-        BottomSheet_AddRolo bottomSheet;
-
-
-
         BottomAppBar bab = findViewById(R.id.app_bar_bottom);
         setSupportActionBar(bab);
 
@@ -41,10 +37,12 @@ public class RolosActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.lista_rolos);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter adapter = new ListaRolosAdapter();
+        RecyclerView.Adapter adapter = new ListaRolosAdapter(this);
         recyclerView.setAdapter(adapter);
 
         bottomSheet = new BottomSheet_AddRolo();
+
+
     }
 
     public void onClickAddRolo(View v){

@@ -21,7 +21,7 @@ public class Rolo {
     private int maxExposicoes;
     private int nExposicoes;
 
-    public Rolo(String titulo, float iso, int formato, int maxExposicoes, String descricao,
+    public Rolo(String titulo, int iso, int formato, int maxExposicoes, String descricao,
                 int idCamera, Context context) {
         this.titulo = titulo;
         this.iso = iso;

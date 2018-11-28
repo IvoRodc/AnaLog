@@ -23,6 +23,13 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
     ArrayList<Rolo> listaRolos;
     DBHandler db;
 
+    ListaRolosAdapter(Context context)
+    {
+        db = new DBHandler(context);
+        listaRolos=new ArrayList<>(db.getRolos().values());
+
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder{
         Integer idRolo;
         AppCompatTextView nFotos;
@@ -66,8 +73,7 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
                 .inflate(R.layout.rolos_card_layout, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
-        db = new DBHandler(parent.getContext());
-        listaRolos=new ArrayList<>(db.getRolos().values());
+
 
         return viewHolder;
     }
@@ -89,6 +95,6 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         //return size of hashmap
-        return 1;
+        return listaRolos.size();
     }
 }
