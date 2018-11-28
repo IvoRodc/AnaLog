@@ -177,26 +177,31 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT "+IDrolo+" FROM " + table_rolo;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        cursor.moveToFirst();
-        ArrayList<Integer> ids = new ArrayList<>();
-        do{
-            ids.add(cursor.getInt(0));
-        }while (cursor.moveToNext());
 
-        db.close();
+        if(cursor.getCount()>0) {
+            cursor.moveToFirst();
+            ArrayList<Integer> ids = new ArrayList<>();
+            do {
+                ids.add(cursor.getInt(0));
+            } while (cursor.getCount() > 0 && cursor.moveToNext());
 
-        if(cursor.getCount()>0){
-            HashMap<Integer, Rolo> listaRolos = new HashMap<>();
+            db.close();
 
-            for(int i=0; i< ids.size(); i++){
-                //reutiliza o método getRolo para preencher o mapa de Rolos
-                listaRolos.put(ids.get(i), getRolo(ids.get(i)));
-            };
+            if (cursor.getCount() > 0) {
+                HashMap<Integer, Rolo> listaRolos = new HashMap<>();
 
-            return listaRolos;
-        }
-        else {
+                for (int i = 0; i < ids.size(); i++) {
+                    //reutiliza o método getRolo para preencher o mapa de Rolos
+                    listaRolos.put(ids.get(i), getRolo(ids.get(i)));
+                }
+                ;
 
+                return listaRolos;
+            } else {
+
+                return null;
+            }
+        } else {
             return null;
         }
     }

@@ -2,6 +2,7 @@ package pt.isec.gps.grupo14.analog;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +27,12 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
     ListaRolosAdapter(Context context)
     {
         db = new DBHandler(context);
-        listaRolos=new ArrayList<>(db.getRolos().values());
-
+        listaRolos = new ArrayList<>();
+        try {
+            listaRolos = new ArrayList<>(db.getRolos().values());
+        }catch (NullPointerException exception){
+            Log.d("ANALOG LOG", "BASE DE DADOS VAZIA");
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -47,9 +52,6 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
             nomeCamera = itemView.findViewById(R.id.camera);
             dataCriacao = itemView.findViewById(R.id.data_rolo);
             descRolo = itemView.findViewById(R.id.descricao_rolo);
-
-
-
         }
 
         public void setId(int id){

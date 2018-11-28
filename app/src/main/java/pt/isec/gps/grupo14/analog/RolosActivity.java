@@ -11,6 +11,7 @@ import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,7 +43,6 @@ public class RolosActivity extends AppCompatActivity {
 
         bottomSheet = new BottomSheet_AddRolo();
 
-
     }
 
     public void onClickAddRolo(View v){
@@ -50,6 +50,8 @@ public class RolosActivity extends AppCompatActivity {
             bottomSheet.show(getSupportFragmentManager(), "BottomSheet_AddRolo");
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

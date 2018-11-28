@@ -2,6 +2,7 @@ package pt.isec.gps.grupo14.analog.BottomSheet;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
 import pt.isec.gps.grupo14.analog.R;
 import pt.isec.gps.grupo14.analog.RolosActivity;
@@ -52,7 +54,11 @@ public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
                         Integer.parseInt(Formato.getText().toString()),
                         Integer.parseInt(Nexp.getText().toString()),Desc.getText().toString(),
                         Integer.parseInt(Camera.getText().toString()), getContext());
+
+                //((RecyclerView)getActivity().findViewById(R.id.lista_rolos)).invalidate();
+
                 dismiss();
+
                 Intent intent = new Intent(getContext(),RolosActivity.class);
                 startActivity(intent);
                 getActivity().finish();
@@ -86,4 +92,5 @@ public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
     public boolean isOpen() {
         return open;
     }
+
 }
