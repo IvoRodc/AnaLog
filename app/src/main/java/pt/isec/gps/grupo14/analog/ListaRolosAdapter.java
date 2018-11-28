@@ -99,4 +99,9 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
         //return size of hashmap
         return listaRolos.size();
     }
+
+    public void addNewRolo(Rolo r){
+        listaRolos.add(0, r);
+        notifyItemInserted(0);
+    }
 }

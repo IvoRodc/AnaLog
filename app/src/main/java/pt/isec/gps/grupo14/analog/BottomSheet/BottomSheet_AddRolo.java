@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
+import pt.isec.gps.grupo14.analog.ListaRolosAdapter;
 import pt.isec.gps.grupo14.analog.R;
 import pt.isec.gps.grupo14.analog.RolosActivity;
 import pt.isec.gps.grupo14.analog.SplashActivity;
@@ -28,6 +29,7 @@ import pt.isec.gps.grupo14.analog.SplashActivity;
 public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
 
     private boolean open;
+
 
     @Nullable
     @Override
@@ -55,13 +57,8 @@ public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
                         Integer.parseInt(Nexp.getText().toString()),Desc.getText().toString(),
                         Integer.parseInt(Camera.getText().toString()), getContext());
 
-                //((RecyclerView)getActivity().findViewById(R.id.lista_rolos)).invalidate();
-
                 dismiss();
-
-                Intent intent = new Intent(getContext(),RolosActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                ((ListaRolosAdapter)((RecyclerView)(getActivity().findViewById(R.id.lista_rolos))).getAdapter()).addNewRolo(r);
             }
         });
         return v;
