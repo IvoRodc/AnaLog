@@ -103,11 +103,6 @@ public class RolosActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ((TextInputEditText)v.findViewById(R.id.ISO_New_Rolo)).setText(isos[which]);
-            }
-        });
-        ad.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
@@ -124,13 +119,7 @@ public class RolosActivity extends AppCompatActivity {
         ad.setSingleChoiceItems(R.array.formato_values, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String x = formatos[which];
-                ((TextInputEditText)v.findViewById(R.id.Formato_New_Rolo)).setText(x);
-            }
-        });
-        ad.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+                ((TextInputEditText)v.findViewById(R.id.Formato_New_Rolo)).setText(formatos[which]);
                 dialog.dismiss();
             }
         });
