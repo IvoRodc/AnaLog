@@ -58,20 +58,8 @@ public class BottomSheet_EdtExp extends BottomSheetDialogFragment {
         DistF.setText(Integer.toString(exp.getDistFocal()));
         Desc.setText(exp.getDescricao());
 
+        delete.setTag(exp.getIdExposicao());
 
-        delete.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //update rolo
-
-                db.removeExposicao(exp.getIdExposicao());
-                dismiss();
-                Intent intent = new Intent(getContext(),ExposicaoActivity.class);
-                intent.putExtra("idrolo", exp.getIdRolo());
-                startActivity(intent);
-                getActivity().finish();
-
-            }
-        });
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

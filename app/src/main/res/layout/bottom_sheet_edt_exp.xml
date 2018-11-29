@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:gravity="center_horizontal"
     android:paddingStart="15dp"
@@ -16,14 +17,16 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Abertura (F)">
+        app:counterMaxLength="4"
+        app:counterEnabled="true"
+        android:hint="@string/abertura_f">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
             android:id="@+id/Abertura_Edt_Exp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="numberDecimal"
             android:maxLines="1"
             android:textSize="15sp"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -32,15 +35,18 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Velocidade de Disparo">
+        app:counterMaxLength="4"
+        app:counterEnabled="true"
+        android:hint="@string/velocidadeD">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
             android:id="@+id/VelD_Edt_Exp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="number"
             android:maxLines="1"
+            android:maxLength="4"
             android:textSize="15sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,7 +54,7 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Lente">
+        android:hint="@string/objetiva">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -64,7 +70,9 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Distancia focal (mm)">
+        app:counterMaxLength="4"
+        app:counterEnabled="true"
+        android:hint="@string/dist_focal">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -73,6 +81,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
+            android:maxLength="4"
             android:textSize="15sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,7 +90,9 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Descrição">
+        android:hint="@string/descr"
+        app:counterMaxLength="200"
+        app:counterEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -103,6 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Eliminar"
+            android:onClick="onClickDeleteExp"
             android:backgroundTint="@color/blue900"
             android:textAllCaps="false"/>
         <com.google.android.material.button.MaterialButton

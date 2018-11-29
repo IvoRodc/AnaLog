@@ -12,6 +12,9 @@ import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_EdtExp;
 import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_EdtRolo;
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.graphics.PorterDuff;
@@ -21,16 +24,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class ExposicaoActivity extends AppCompatActivity {
 
         BottomSheet_AddExp bottomSheet;
         BottomSheet_EdtRolo bottomSheetEdtRolo;
         Rolo rolo;
+        DBHandler db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +49,7 @@ public class ExposicaoActivity extends AppCompatActivity {
         //vars
         int IDRolo=-1;
         Intent intent = getIntent();
-        DBHandler db = new DBHandler(this);
+        db = new DBHandler(this);
 
 
         if (intent != null) {
@@ -133,5 +140,79 @@ public class ExposicaoActivity extends AppCompatActivity {
         if(!bottomSheet.isOpen()){
             bottomSheet.show(getSupportFragmentManager(), "BottomSheet_AddRolo");
         }
+    }
+
+
+    public void onClickDialogISO(View view){
+        final String[] isos = getResources().getStringArray(R.array.ISO_values);
+        final View v = view;
+        AlertDialog.Builder ad = new AlertDialog.Builder(ExposicaoActivity.this);
+        ad.setTitle(getString(R.string.Escolha_ISO));
+
+        ad.setSingleChoiceItems(R.array.ISO_values, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ((TextInputEditText)v.findViewById(R.id.ISO_Edt_Rolo)).setText(isos[which]);
+                dialog.dismiss();
+            }
+        });
+
+        ad.show();
+    }
+
+    public void onClickDeleteRolo(View view){
+        final View v = view;
+        final Context context = this;
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(getString(R.string.elmRolo));
+        alert.setMessage(getString(R.string.elmRolo_text));
+        alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // continue with delete
+                db.removeRolo(rolo.getIdRolo());
+                Intent intent = new Intent(context,RolosActivity.class);
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        alert.show();
+    }
+    public void onClickDeleteExp(View view){
+        final View v = view;
+        final Context context = this;
+
+        final String id = view.getTag().toString();
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(getString(R.string.Elm_exp));
+        alert.setMessage(getString(R.string.Elm_exp_text));
+        alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // continue with delete
+                db.removeExposicao(Integer.parseInt(id));
+                Intent intent = new Intent(context,ExposicaoActivity.class);
+                intent.putExtra("idrolo", rolo.getIdRolo());
+                startActivity(intent);
+                finish();
+            }
+        });
+        alert.show();
+    }
+
+    public void onClickDialogFormato(View view){
+        final String[] formatos = getResources().getStringArray(R.array.formato_values);
+        final View v = view;
+        AlertDialog.Builder ad = new AlertDialog.Builder(ExposicaoActivity.this);
+        ad.setTitle(getString(R.string.Escolha_forma));
+
+        ad.setSingleChoiceItems(R.array.formato_values, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ((TextInputEditText)v.findViewById(R.id.Formato_Edt_Rolo)).setText(formatos[which]);
+                dialog.dismiss();
+            }
+        });
+
+        ad.show();
     }
 }

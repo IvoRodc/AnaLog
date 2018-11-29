@@ -8,6 +8,25 @@
 
     <!-- Strings activity_exposiçao -->
     <string name="titulo_activity_exposicao">Rolo #</string>
+    <string name="camera">Câmera</string>
+    <string name="titulo_rolo">Título rolo</string>
+    <string name="iso">ISO</string>
+    <string name="n_exp">Numero de Exposições</string>
+    <string name="formato">Formato</string>
+    <string name="descr">Descrição</string>
+    <string name="guardar">Guardar</string>
+    <string name="revel">Revelado</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="Escolha_ISO">Escolha o ISO</string>
+    <string name="Escolha_forma">Escolha o formato</string>
+    <string name="abertura_f">Abertura (F)</string>
+    <string name="velocidadeD">Velocidade de Disparo</string>
+    <string name="objetiva">Objetiva</string>
+    <string name="dist_focal">Distancia focal (mm)</string>
+    <string name="elmRolo">Eliminar Rolo</string>
+    <string name="elmRolo_text">Tem a certeza que quer eliminar este rolo?</string>
+    <string name="Elm_exp">Eliminar Exposição</string>
+    <string name="Elm_exp_text">Confirma a remoção desta exposição?</string>
 
     <!-- String para formuário Adicionar Rolo -->
     <string-array name="ISO_values">

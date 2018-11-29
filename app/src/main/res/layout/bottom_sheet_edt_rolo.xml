@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:gravity="center_horizontal"
     android:paddingStart="15dp"
@@ -16,7 +17,9 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Título rolo">
+        app:counterMaxLength="20"
+        app:counterEnabled="true"
+        android:hint="@string/titulo_rolo">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -25,6 +28,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
+            android:maxLength="20"
             android:textSize="15sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -32,7 +36,7 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Camara">
+        android:hint="@string/camera">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -48,7 +52,7 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ISO">
+        android:hint="@string/iso">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -57,14 +61,19 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:enabled="true"
+            android:onClick="onClickDialogISO"
+            android:focusable="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Numero de Exposições">
+        android:hint="@string/n_exp"
+        app:counterMaxLength="2"
+        app:counterEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -73,14 +82,15 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:maxLength="2"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Formato">
+        android:hint="@string/formato">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -89,14 +99,19 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:enabled="true"
+            android:onClick="onClickDialogFormato"
+            android:focusable="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Descrição">
+        android:hint="@string/descr"
+        app:counterMaxLength="200"
+        app:counterEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -105,7 +120,8 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:maxLength="200"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -115,8 +131,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Revelado"/>
+            android:gravity="right"
+            android:text="@string/revel"/>
     <Switch
         android:id="@+id/ReveladoSwitch"
         android:layout_width="match_parent"
@@ -137,14 +153,15 @@
             android:id="@+id/Btn_Del_Rolo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Eliminar"
+            android:text="@string/eliminar"
+            android:onClick="onClickDeleteRolo"
             android:backgroundTint="@color/blue900"
             android:textAllCaps="false"/>
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Btn_Edt_Rolo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guardar"
+            android:text="@string/guardar"
             android:backgroundTint="@color/blue500"
             android:textAllCaps="false"/>
 

@@ -41,7 +41,6 @@ public class BottomSheet_EdtRolo extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.bottom_sheet_edt_rolo, container, false);
         Button button = (Button) v.findViewById(R.id.Btn_Edt_Rolo);
-        Button delete =(Button) v.findViewById(R.id.Btn_Del_Rolo);
         final DBHandler db = new DBHandler(getContext());
 
         int id =getArguments().getInt("IDRolo");
@@ -63,19 +62,7 @@ public class BottomSheet_EdtRolo extends BottomSheetDialogFragment {
         Desc.setText(rolo.getDescricao());
         revelado.setChecked(rolo.isRevelado());
 
-        delete.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //update rolo
 
-                db.removeRolo(rolo.getIdRolo());
-                dismiss();
-                Intent intent = new Intent(getContext(),RolosActivity.class);
-
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-
-            }
-        });
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -19,7 +19,7 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Título rolo"
+        android:hint="@string/titulo_rolo"
         app:counterMaxLength="20"
         app:counterEnabled="true">
 
@@ -38,7 +38,7 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Camara">
+        android:hint="@string/camera">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -54,7 +54,7 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ISO"
+        android:hint="@string/iso"
         android:onClick="onClickDialogISO">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -76,7 +76,7 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Numero de Exposições"
+        android:hint="@string/n_exp"
         app:counterMaxLength="2"
         app:counterEnabled="true">
 
@@ -95,7 +95,7 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Formato">
+        android:hint="@string/formato">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -114,7 +114,7 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Descrição"
+        android:hint="@string/descr"
         app:counterMaxLength="200"
         app:counterEnabled="true">
 
@@ -139,7 +139,7 @@
             android:id="@+id/Btn_New_Rolo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guardar"
+            android:text="@string/guardar"
             android:backgroundTint="@color/blue500"
             android:textAllCaps="false"/>
 

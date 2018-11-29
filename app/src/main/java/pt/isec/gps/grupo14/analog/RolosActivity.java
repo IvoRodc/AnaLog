@@ -97,7 +97,7 @@ public class RolosActivity extends AppCompatActivity {
         final String[] isos = getResources().getStringArray(R.array.ISO_values);
         final View v = view;
         AlertDialog.Builder ad = new AlertDialog.Builder(RolosActivity.this);
-        ad.setTitle("Escolha o ISO");
+        ad.setTitle(getString(R.string.Escolha_ISO));
 
         ad.setSingleChoiceItems(R.array.ISO_values, -1, new DialogInterface.OnClickListener() {
             @Override
@@ -114,7 +114,7 @@ public class RolosActivity extends AppCompatActivity {
         final String[] formatos = getResources().getStringArray(R.array.formato_values);
         final View v = view;
         AlertDialog.Builder ad = new AlertDialog.Builder(RolosActivity.this);
-        ad.setTitle("Escolha o formato");
+        ad.setTitle(getString(R.string.Escolha_forma));
 
         ad.setSingleChoiceItems(R.array.formato_values, -1, new DialogInterface.OnClickListener() {
             @Override

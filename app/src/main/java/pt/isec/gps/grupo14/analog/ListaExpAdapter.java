@@ -92,7 +92,7 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
         // Substituir o texto
 
         Exposicao e = ListaExp.get(position);
-        ((ViewHolder)viewHolder).nomeFoto.setText("Foto "+ (position+1));
+        ((ViewHolder)viewHolder).nomeFoto.setText("Foto "+ (ListaExp.size() -(position)));
         ((ViewHolder)viewHolder).dataFoto.setText(e.getData());
         ((ViewHolder)viewHolder).descFoto.setText(e.getDescricao());
         ((ViewHolder)viewHolder).AberturaFoto.setText(Float.toString(e.getAbertura()));
