@@ -63,10 +63,11 @@ public class BottomSheet_AddExp extends BottomSheetDialogFragment {
                 //((RecyclerView)getActivity().findViewById(R.id.lista_rolos)).invalidate();
 
                 dismiss();
-
-                Intent intent = new Intent(getContext(),ExposicaoActivity.class);
-                startActivity(intent);
                 getActivity().finish();
+                Intent intent = new Intent(getContext(),ExposicaoActivity.class);
+                intent.putExtra("idrolo", r.getIdRolo());
+                startActivity(intent);
+
             }
         });
         return v;

@@ -104,4 +104,9 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
         listaRolos.add(0, r);
         notifyItemInserted(0);
     }
+
+    public void Update(Rolo r){
+
+        notifyItemInserted(0);
+    }
 }

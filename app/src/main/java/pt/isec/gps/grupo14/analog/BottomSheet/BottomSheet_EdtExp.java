@@ -17,18 +17,17 @@ import com.google.android.material.textfield.TextInputEditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
+import pt.isec.gps.grupo14.analog.AnaLog.Exposicao;
 import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 import pt.isec.gps.grupo14.analog.ExposicaoActivity;
-import pt.isec.gps.grupo14.analog.ListaRolosAdapter;
 import pt.isec.gps.grupo14.analog.R;
 import pt.isec.gps.grupo14.analog.RolosActivity;
 
-public class BottomSheet_EdtRolo extends BottomSheetDialogFragment {
+public class BottomSheet_EdtExp extends BottomSheetDialogFragment {
 
     private boolean open;
-    Rolo rolo;
+    Exposicao exp;
 
     @Nullable
     @Override
@@ -39,40 +38,37 @@ public class BottomSheet_EdtRolo extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.bottom_sheet_edt_rolo, container, false);
-        Button button = (Button) v.findViewById(R.id.Btn_Edt_Rolo);
-        Button delete =(Button) v.findViewById(R.id.Btn_Del_Rolo);
+        View v = inflater.inflate(R.layout.bottom_sheet_edt_exp, container, false);
+        Button button = (Button) v.findViewById(R.id.Btn_Edt_Exp);
+        Button delete =(Button) v.findViewById(R.id.Btn_Del_Exp);
         final DBHandler db = new DBHandler(getContext());
 
-        int id =getArguments().getInt("IDRolo");
-        rolo = db.getRolo(id);
+        int id =getArguments().getInt("IDExp");
+        exp = db.getExposicao(id);
 
-        final TextInputEditText Titulo = (TextInputEditText)v.findViewById(R.id.Titulo_Edt_Rolo);
-        final TextInputEditText Camera = (TextInputEditText)v.findViewById(R.id.IDCAM_Edt_Rolo);
-        final TextInputEditText ISO = (TextInputEditText)v.findViewById(R.id.ISO_Edt_Rolo);
-        final TextInputEditText Nexp = (TextInputEditText)v.findViewById(R.id.NExp_Edt_Rolo);
-        final TextInputEditText Formato = (TextInputEditText)v.findViewById(R.id.Formato_Edt_Rolo);
-        final TextInputEditText Desc = (TextInputEditText)v.findViewById(R.id.Desc_Edt_Rolo);
-        final Switch revelado= (Switch)v.findViewById(R.id.ReveladoSwitch) ;
+        final TextInputEditText abertura = (TextInputEditText)v.findViewById(R.id.Abertura_Edt_Exp);
+        final TextInputEditText Vel = (TextInputEditText)v.findViewById(R.id.VelD_Edt_Exp);
+        final TextInputEditText Lente = (TextInputEditText)v.findViewById(R.id.Lente_Edt_Exp);
+        final TextInputEditText DistF = (TextInputEditText)v.findViewById(R.id.DistF_Edt_Exp);
+        final TextInputEditText Desc = (TextInputEditText)v.findViewById(R.id.Desc_Edt_Exp);
 
-        Titulo.setText(rolo.getTitulo());
-        Camera.setText(Integer.toString(rolo.getIdCamera()));
-        ISO.setText(Integer.toString(rolo.getIso()));
-        Nexp.setText(Integer.toString(rolo.getMaxExposicoes()));
-        Formato.setText(Integer.toString(rolo.getFormato()));
-        Desc.setText(rolo.getDescricao());
-        revelado.setChecked(rolo.isRevelado());
+        abertura.setText(Float.toString(exp.getAbertura()));
+        Vel.setText(Integer.toString(exp.getVelDisparo()));
+        Lente.setText(Integer.toString(exp.getIdObjetiva()));
+        DistF.setText(Integer.toString(exp.getDistFocal()));
+        Desc.setText(exp.getDescricao());
+
 
         delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //update rolo
 
-                db.removeRolo(rolo.getIdRolo());
+                db.removeExposicao(exp.getIdExposicao());
                 dismiss();
-                Intent intent = new Intent(getContext(),RolosActivity.class);
-
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent intent = new Intent(getContext(),ExposicaoActivity.class);
+                intent.putExtra("idrolo", exp.getIdRolo());
                 startActivity(intent);
+                getActivity().finish();
 
             }
         });
@@ -81,17 +77,16 @@ public class BottomSheet_EdtRolo extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 //update rolo
 
-                rolo.updateRolo(Titulo.getText().toString(), Integer.parseInt(ISO.getText().toString()),
-                        Integer.parseInt(Formato.getText().toString()),
-                        Integer.parseInt(Nexp.getText().toString()),Desc.getText().toString(), revelado.isChecked() ,
-                        Integer.parseInt(Camera.getText().toString()), getContext());
+                exp.updateExposicao(Desc.getText().toString(), Integer.parseInt(Vel.getText().toString()),
+                        Float.parseFloat(abertura.getText().toString()),Integer.parseInt(DistF.getText().toString()),
+                        Integer.parseInt(Lente.getText().toString()), getContext());
 
                 Intent intent = new Intent(getContext(),ExposicaoActivity.class);
-                intent.putExtra("idrolo", rolo.getIdRolo());
+                intent.putExtra("idrolo", exp.getIdRolo());
                 startActivity(intent);
                 getActivity().finish();
                 dismiss();
-               // ((ListaRolosAdapter)((RecyclerView)(getActivity().findViewById(R.id.lista_rolos))).getAdapter()).addNewRolo(r);
+                // ((ListaRolosAdapter)((RecyclerView)(getActivity().findViewById(R.id.lista_rolos))).getAdapter()).addNewRolo(r);
             }
         });
         return v;
@@ -122,7 +117,4 @@ public class BottomSheet_EdtRolo extends BottomSheetDialogFragment {
     public boolean isOpen() {
         return open;
     }
-
 }
-
-

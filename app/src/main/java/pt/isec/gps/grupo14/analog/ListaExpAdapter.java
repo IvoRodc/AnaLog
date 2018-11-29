@@ -1,6 +1,7 @@
 package pt.isec.gps.grupo14.analog;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,20 +13,24 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import pt.isec.gps.grupo14.analog.AnaLog.Exposicao;
+import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_EdtExp;
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
 public class ListaExpAdapter extends RecyclerView.Adapter{
 
     DBHandler db;
     ArrayList<Exposicao> ListaExp;
+    FragmentActivity c;
     int idRolo;
 
-    ListaExpAdapter (int idRolo, Context context){
+    ListaExpAdapter (FragmentActivity c , int idRolo, Context context){
 
         this.idRolo= idRolo;
         db = new DBHandler(context);
+        this.c=c;
         ListaExp=new ArrayList<>();
         try {
             ListaExp=new ArrayList<>(db.getExposicoes(idRolo).values());
@@ -50,9 +55,13 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Snackbar.make(v, "click detected on item " + getAdapterPosition(),
-                            Snackbar.LENGTH_SHORT).setAction("Action", null)
-                            .show();
+                    BottomSheet_EdtExp bottomSheetEdtExp = new BottomSheet_EdtExp();
+                    Bundle bEdt = new Bundle();
+                    bEdt.putInt("IDExp", ListaExp.get(getAdapterPosition()).getIdExposicao());
+                    bottomSheetEdtExp.setArguments(bEdt);
+                    if(!bottomSheetEdtExp.isOpen()){
+                        bottomSheetEdtExp.show( c.getSupportFragmentManager(), "BottomSheet_EdtRolo");
+                    }
                 }
             });
         }
@@ -76,7 +85,7 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
         // Substituir o texto
 
         Exposicao e = ListaExp.get(position);
-        ((ViewHolder)viewHolder).nomeFoto.setText("Foto"+ position);
+        ((ViewHolder)viewHolder).nomeFoto.setText("Foto "+ (position+1));
 
         ((ViewHolder)viewHolder).dataFoto.setText(e.getData());
         ((ViewHolder)viewHolder).descFoto.setText(e.getDescricao());

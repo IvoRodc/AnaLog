@@ -12,7 +12,7 @@ public class Rolo {
 
     private int idRolo;
     private String titulo;
-    private float iso;
+    private int iso;
     private int formato;
     private String descricao;
     private boolean revelado;
@@ -57,7 +57,7 @@ public class Rolo {
         return titulo;
     }
 
-    public float getIso() {
+    public int getIso() {
         return iso;
     }
 

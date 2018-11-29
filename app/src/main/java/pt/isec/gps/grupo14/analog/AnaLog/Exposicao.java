@@ -57,7 +57,7 @@ public class Exposicao {
         return descricao;
     }
 
-    public float getVelDisparo() {
+    public int getVelDisparo() {
         return velDisparo;
     }
 
@@ -65,7 +65,7 @@ public class Exposicao {
         return abertura;
     }
 
-    public float getDistFocal() {
+    public int getDistFocal() {
         return distFocal;
     }
 

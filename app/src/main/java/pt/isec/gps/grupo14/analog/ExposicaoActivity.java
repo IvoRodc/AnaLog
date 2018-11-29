@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import pt.isec.gps.grupo14.analog.AnaLog.Camera;
 import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
 import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_AddExp;
+import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_EdtExp;
 import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_EdtRolo;
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
@@ -85,7 +86,7 @@ public class ExposicaoActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.lista_exposicoes);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter adapter = new ListaExpAdapter(IDRolo, this);
+        RecyclerView.Adapter adapter = new ListaExpAdapter( this,IDRolo, this);
 
         recyclerView.setAdapter(adapter);
 
@@ -95,6 +96,7 @@ public class ExposicaoActivity extends AppCompatActivity {
         bottomSheet.setArguments(bundle);
 
         bottomSheetEdtRolo = new BottomSheet_EdtRolo();
+
     }
 
     @Override
