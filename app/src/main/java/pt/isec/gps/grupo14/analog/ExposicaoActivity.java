@@ -132,6 +132,11 @@ public class ExposicaoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_rolos_settings:
+                //Mudar para a activity definições
+                Intent intent = new Intent(this, PerfilActivity.class);
+                startActivity(intent);
+                break;
             case R.id.menu_exp_edit:
                 Bundle rolo_b = new Bundle();
                 rolo_b.putInt("IDRolo", rolo.getIdRolo());
@@ -139,10 +144,11 @@ public class ExposicaoActivity extends AppCompatActivity {
                 if(!bottomSheetEdtRolo.isOpen()){
                     bottomSheetEdtRolo.show(getSupportFragmentManager(), "BottomSheet_EdtRolo");
                 }
-
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
     public void onClickAddExp(View v){

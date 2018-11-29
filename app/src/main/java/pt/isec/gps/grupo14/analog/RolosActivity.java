@@ -10,6 +10,7 @@ import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -84,13 +85,18 @@ public class RolosActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_rolos_settings:
                 //Mudar para a activity definições
-                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, PerfilActivity.class);
+                startActivity(intent);
+                break;
             case R.id.menu_rolos_search:
                 //Mostar caixa de pesquisa
                 Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
+
     }
 
     public void onClickDialogISO(View view){

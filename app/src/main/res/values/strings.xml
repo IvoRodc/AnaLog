@@ -48,5 +48,7 @@
         <item>220</item>
     </string-array>
     <string name="title_activity_perfil">PerfilActivity</string>
+    <string name="perfil">Perfil</string>
+    <string name="Username_str">Nome de Utilizador</string>
 
 </resources>
