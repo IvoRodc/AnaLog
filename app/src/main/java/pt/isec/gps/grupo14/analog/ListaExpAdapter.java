@@ -44,6 +44,9 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
         AppCompatTextView dataFoto;
         AppCompatTextView descFoto;
         AppCompatTextView nomeFoto;
+        AppCompatTextView AberturaFoto;
+        AppCompatTextView VelFoto;
+        AppCompatTextView DistFoto;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -52,6 +55,10 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
             dataFoto = itemView.findViewById(R.id.Card_data_foto);
             descFoto = itemView.findViewById(R.id.Card_Desc_Foto);
             nomeFoto =itemView.findViewById(R.id.Card_nome_foto);
+            AberturaFoto =itemView.findViewById(R.id.Card_Fval_foto);
+            VelFoto =itemView.findViewById(R.id.Card_Velval_foto);
+            DistFoto =itemView.findViewById(R.id.Card_Distval_foto);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -86,9 +93,11 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
 
         Exposicao e = ListaExp.get(position);
         ((ViewHolder)viewHolder).nomeFoto.setText("Foto "+ (position+1));
-
         ((ViewHolder)viewHolder).dataFoto.setText(e.getData());
         ((ViewHolder)viewHolder).descFoto.setText(e.getDescricao());
+        ((ViewHolder)viewHolder).AberturaFoto.setText(Float.toString(e.getAbertura()));
+        ((ViewHolder)viewHolder).VelFoto.setText(Integer.toString(e.getVelDisparo()));
+        ((ViewHolder)viewHolder).DistFoto.setText(Integer.toString(e.getDistFocal()));
     }
 
     @Override

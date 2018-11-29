@@ -62,11 +62,68 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="right">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Focal: "
+                    android:textSize="16dp"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/Card_Distval_foto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="300"
+                    android:textSize="16dp"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="mm"
+                    android:textSize="16dp"/>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_sample_image"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right"
+                android:paddingTop="5dp"
+                >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shutter: "
+                android:textSize="16dp"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/Card_Velval_foto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="400"
+                    android:textSize="16dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right"
+                android:paddingTop="5dp">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="F "
+                    android:textSize="16dp"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/Card_Fval_foto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2.8"
+                    android:textSize="16dp"/>
+            </LinearLayout>
+
 
         </LinearLayout>
 

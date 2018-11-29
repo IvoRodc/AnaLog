@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_exp_edit"
+        android:id="@+id/menu_rolos_settings"
         android:icon="@drawable/ic_settings"
+        android:title="@string/menu_titulo_settings"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/menu_exp_edit"
+        android:icon="@drawable/ic_round_edit"
         android:title="Editar Rolo"
         app:showAsAction="ifRoom"/>
 
