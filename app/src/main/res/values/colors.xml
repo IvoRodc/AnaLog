@@ -7,7 +7,7 @@
     <color name="colorPrimary">#2196f3</color>
     <color name="colorAccent">#E3F2FD</color>
     <color name="colorPrimaryDark">#0D47A1</color>
-
+    <color name="disabledButton">#ababab</color>
     <color name="blue500">#2196f3</color>
     <color name="blue50">#E3F2FD</color>
     <color name="blue100">#bbdefb</color>

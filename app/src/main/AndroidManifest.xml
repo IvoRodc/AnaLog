@@ -18,9 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RolosActivity"></activity>
-        <activity android:name=".ExposicaoActivity"
-            android:parentActivityName=".RolosActivity"></activity>
+        <activity android:name=".RolosActivity" />
+        <activity
+            android:name=".ExposicaoActivity"
+            android:parentActivityName=".RolosActivity" />
+        <activity
+            android:name=".PerfilActivity"
+            android:label="@string/title_activity_perfil"></activity>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package pt.isec.gps.grupo14.analog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import pt.isec.gps.grupo14.analog.AnaLog.Camera;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class ExposicaoActivity extends AppCompatActivity {
@@ -67,9 +69,16 @@ public class ExposicaoActivity extends AppCompatActivity {
                finish();
            }
        });
-
         TextView titulo = findViewById(R.id.title_Exp);
         titulo.setText("Rolo #" + IDRolo);
+
+        //se o rolo ja estiver a maxima capacidade desabilita o botao de adicionar novas exp
+        FloatingActionButton fab = findViewById(R.id.fab_addExp);
+        if(rolo.getnExposicoes()==rolo.getMaxExposicoes())
+        {
+            fab.setEnabled(false);
+            fab.setSupportBackgroundTintList(ContextCompat.getColorStateList(this, R.color.disabledButton));
+        }
 
 
 

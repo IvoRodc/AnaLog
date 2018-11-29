@@ -47,5 +47,6 @@
         <item>127</item>
         <item>220</item>
     </string-array>
+    <string name="title_activity_perfil">PerfilActivity</string>
 
 </resources>
