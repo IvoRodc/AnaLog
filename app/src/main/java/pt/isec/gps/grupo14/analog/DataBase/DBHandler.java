@@ -79,7 +79,7 @@ public class DBHandler extends SQLiteOpenHelper {
         //region CREATE_TABLE_OBJETIVA
         String CREATE_TABLE_OBJETIVA = "CREATE TABLE IF NOT EXISTS "
                 + table_objetiva + " ("
-                + IDobj + " INTEGER,"
+                + IDobj + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + MarcaObj + " VARCHAR(20),"
                 + ModeloObj + " VARCHAR(20))";
         //endregion
@@ -174,7 +174,7 @@ public class DBHandler extends SQLiteOpenHelper {
      * @return todos os rolos numa HashMap com key=idRolo que armazena objetos do tipo Rolo
      */
     public HashMap<Integer, Rolo> getRolos(){
-        String selectQuery = "SELECT "+IDrolo+" FROM " + table_rolo;
+        String selectQuery = "SELECT "+IDrolo+" FROM " + table_rolo+ " order by IDrolo desc";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -392,9 +392,11 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM " + table_camera + " WHERE " + IDcam + "=" + idCamera;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        Camera Cam = new Camera(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
         db.close();
 
-        return  new Camera(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
+        return  Cam;
     }
 
     /**
@@ -405,7 +407,7 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT "+ IDcam +" FROM " + table_camera;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
-        db.close();
+       cursor.moveToFirst();
 
         if(cursor.getCount()>0){
             HashMap<Integer, Camera> listaCameras = new HashMap<>();
@@ -413,9 +415,11 @@ public class DBHandler extends SQLiteOpenHelper {
             do{
                 listaCameras.put(cursor.getInt(0),getCamera(cursor.getInt(0)));
             }while(cursor.moveToNext());
+            db.close();
             return listaCameras;
         }
         else {
+            db.close();
             return null;
         }
     }
@@ -462,10 +466,11 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM " + table_objetiva + " WHERE " + IDobj + "=" + idObjetiva;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
+        cursor.moveToFirst();
+        Objetiva obj= new Objetiva(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
         db.close();
 
-        return  new Objetiva(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
+        return  obj;
     }
 
     /**
@@ -476,7 +481,7 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM " + table_objetiva;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
-        db.close();
+        cursor.moveToFirst();
 
         if(cursor.getCount()>0){
             HashMap<Integer, Objetiva> listaObjetivas = new HashMap<>();
@@ -485,10 +490,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 Objetiva obj = new Objetiva(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
                 listaObjetivas.put(obj.getIdObjetiva(),obj);
             }while(cursor.moveToNext());
-
+            db.close();
             return listaObjetivas;
         }
         else {
+            db.close();
             return null;
         }
     }
@@ -506,12 +512,10 @@ public class DBHandler extends SQLiteOpenHelper {
         value.put(ModeloObj, obj.getModelo());
 
         //Insert Row
-        db.insert(table_objetiva, null, value);
+        int idObjectiva = (int)db.insert(table_objetiva, null, value);
 
-        String lastId = "SELECT " + IDcam + " FROM "+ table_objetiva + " ORDER BY 'DESC' LIMIT 1";
-        Cursor cursor = db.rawQuery(lastId, null);
-        db.close();
-        return cursor.getInt(0);
+        return idObjectiva;
+
     }
 
     /**

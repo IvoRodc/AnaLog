@@ -50,5 +50,13 @@
     <string name="title_activity_perfil">PerfilActivity</string>
     <string name="perfil">Perfil</string>
     <string name="Username_str">Nome de Utilizador</string>
+    <string name="Cam_escolha">Escolha a câmera</string>
+    <string name="Erro_desc">Insira uma descrição valida</string>
+    <string name="Erro_form">Insira um formato</string>
+    <string name="Erro_nexp">Insira um numero de exposições valido</string>
+    <string name="Erro_ISO">Insira um ISO</string>
+    <string name="Erro_titulo">Insira um título valido</string>
+    <string name="Erro_Vel">Insira uma velocidade valida</string>
+    <string name="Erro_Abr">Insira uma abertura valida</string>
 
 </resources>

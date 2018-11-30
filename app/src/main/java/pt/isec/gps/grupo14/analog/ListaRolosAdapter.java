@@ -30,6 +30,7 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
         listaRolos = new ArrayList<>();
         try {
             listaRolos = new ArrayList<>(db.getRolos().values());
+
         }catch (NullPointerException exception){
             Log.d("ANALOG LOG", "BASE DE DADOS VAZIA");
         }

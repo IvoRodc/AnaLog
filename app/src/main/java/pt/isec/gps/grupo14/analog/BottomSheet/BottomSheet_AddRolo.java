@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,14 +49,141 @@ public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
         final TextInputEditText Nexp = (TextInputEditText)v.findViewById(R.id.NExp_New_Rolo);
         final TextInputEditText Formato = (TextInputEditText)v.findViewById(R.id.Formato_New_Rolo);
         final TextInputEditText Desc = (TextInputEditText)v.findViewById(R.id.Desc_New_Rolo);
+        final TextInputLayout Titulolayout = (TextInputLayout)v.findViewById(R.id.TituloNewLayout);
+        final TextInputLayout ISOlayout = (TextInputLayout)v.findViewById(R.id.ISONewLayout);
+        final TextInputLayout NExplayout = (TextInputLayout)v.findViewById(R.id.NExpNewLayout);
+        final TextInputLayout Formatoinput_layout = (TextInputLayout)v.findViewById(R.id.FormatoNewLayout);
+        final TextInputLayout Descinput_layout = (TextInputLayout)v.findViewById(R.id.descricaoNewLayout);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //guardar rolo
+                int control=0;
+                if(Titulo.getText().toString().isEmpty())
+                {
+                    Titulolayout.setError(getString(R.string.Erro_titulo));
+                    control=1;
+                    Titulo.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (s.length() > 0) {
+                                Titulolayout.setError(null);
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+                if(ISO.getText().toString().isEmpty())
+                {
+                    ISOlayout.setError(getString(R.string.Erro_ISO));
+                    control=1;
+                    ISO.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (s.length() > 0) {
+                                ISOlayout.setError(null);
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+                if(Nexp.getText().toString().isEmpty())
+                {
+                    NExplayout.setError(getString(R.string.Erro_nexp));
+                    control=1;
+                    Nexp.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (s.length() > 0) {
+                                NExplayout.setError(null);
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+                if(Formato.getText().toString().isEmpty())
+                {
+                    Formatoinput_layout.setError(getString(R.string.Erro_form));
+                    control=1;
+                    Formato.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (s.length() > 0) {
+                            Formatoinput_layout.setError(null);
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+                }
+                if(Desc.getText().toString().isEmpty())
+                {
+                    Descinput_layout.setError(getString(R.string.Erro_desc));
+                    control=1;
+                    Desc.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (s.length() > 0) {
+                                Descinput_layout.setError(null);
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+
+                if (control==1)
+                    return;
+
+                int cam=-1;
+                if (!Camera.getText().toString().isEmpty()){
+                    cam= Integer.parseInt(Camera.getText().toString());
+                }
                 Rolo r = new Rolo(Titulo.getText().toString(), Integer.parseInt(ISO.getText().toString()),
                         Integer.parseInt(Formato.getText().toString()),
                         Integer.parseInt(Nexp.getText().toString()),Desc.getText().toString(),
-                        Integer.parseInt(Camera.getText().toString()), getContext());
+                        cam, getContext());
 
                 Titulo.setText("");
                 Camera.setText("");

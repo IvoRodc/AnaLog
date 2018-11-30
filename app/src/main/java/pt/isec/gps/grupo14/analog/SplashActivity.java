@@ -1,7 +1,9 @@
 package pt.isec.gps.grupo14.analog;
 
 import androidx.appcompat.app.AppCompatActivity;
+import pt.isec.gps.grupo14.analog.AnaLog.Camera;
 import pt.isec.gps.grupo14.analog.AnaLog.Exposicao;
+import pt.isec.gps.grupo14.analog.AnaLog.Objetiva;
 import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
 
 import android.animation.Animator;
@@ -26,9 +28,12 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         //TESTE APENAS
-       // Rolo r = new Rolo("TESTE",400, 35, 36, "Teste de rolo e cenas", 0 , this );
-        //Exposicao e = new Exposicao(1, 100, 100, "Teste exp", 1, 0, this);
-
+        /*Rolo r = new Rolo("TESTE",400, 35, 2, "Teste de rolo e cenas", 1 , this );
+        Exposicao e = new Exposicao(100, 100, 100, "Teste exp", 1, 1, this);
+        Objetiva o = new Objetiva("Objectiva", "ModeloObj", this);
+        Objetiva o1 = new Objetiva("Objectiva2", "ModeloObj2", this);
+        Camera c = new Camera("Camera", "ModeloCam", this);
+        Camera c1 = new Camera("Camera2", "ModeloCam2",this);*/
 
 
 

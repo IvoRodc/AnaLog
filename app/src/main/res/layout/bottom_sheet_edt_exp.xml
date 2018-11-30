@@ -15,9 +15,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/AppTheme.TextInputLayout"
+        android:id="@+id/AberturaLayout"
+        app:errorEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:counterMaxLength="4"
+        app:counterMaxLength="5"
         app:counterEnabled="true"
         android:hint="@string/abertura_f">
 
@@ -28,11 +30,14 @@
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:maxLines="1"
+            android:maxLength="5"
             android:textSize="15sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/AppTheme.TextInputLayout"
+        android:id="@+id/VelDLayout"
+        app:errorEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:counterMaxLength="4"
@@ -54,15 +59,18 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onClickDialogObj"
         android:hint="@string/objetiva">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
-            android:id="@+id/Lente_Edt_Exp"
+            android:id="@+id/Lente_New_Exp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
+            android:onClick="onClickDialogObj"
+            android:focusable="false"
             android:textSize="15sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,7 +87,7 @@
             android:id="@+id/DistF_Edt_Exp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="number"
             android:maxLines="1"
             android:maxLength="4"
             android:textSize="15sp"/>
@@ -88,6 +96,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/AppTheme.TextInputLayout"
+        android:id="@+id/DescLayout"
+        app:errorEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/descr"
@@ -101,6 +111,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
+            android:maxLength="200"
             android:textSize="15sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 

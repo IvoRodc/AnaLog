@@ -17,6 +17,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/AppTheme.TextInputLayout"
+        android:id="@+id/TituloNewLayout"
+        app:errorEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/titulo_rolo"
@@ -38,6 +40,7 @@
         style="@style/AppTheme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onClickDialogISO"
         android:hint="@string/camera">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -47,15 +50,19 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
+            android:focusable="false"
+            android:onClick="onClickDialogCam"
             android:textSize="15sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/AppTheme.TextInputLayout"
+        android:id="@+id/ISONewLayout"
+        app:errorEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/iso"
-        android:onClick="onClickDialogISO">
+        android:onClick="onClickDialogCam">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
@@ -74,6 +81,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/AppTheme.TextInputLayout"
+        android:id="@+id/NExpNewLayout"
+        app:errorEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/n_exp"
@@ -93,6 +102,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/AppTheme.TextInputLayout"
+        android:id="@+id/FormatoNewLayout"
+        app:errorEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/formato">
@@ -112,9 +123,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/AppTheme.TextInputLayout"
+        android:id="@+id/descricaoNewLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/descr"
+        app:errorEnabled="true"
         app:counterMaxLength="200"
         app:counterEnabled="true">
 

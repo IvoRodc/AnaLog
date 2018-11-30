@@ -1,14 +1,18 @@
 package pt.isec.gps.grupo14.analog.AnaLog;
 
+import android.content.Context;
+
+import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
+
 public class Objetiva {
     private int idObjetiva;
     private String marca;
     private String modelo;
 
-    public Objetiva(String marca, String modelo){
+    public Objetiva(String marca, String modelo, Context context){
         this.marca = marca;
         this.modelo = modelo;
-        //chamar a função para adicionar objetiva
+        this.idObjetiva = new DBHandler(context).addObjetiva(this);
     }
 
     public Objetiva(int idObjetiva, String marca, String modelo){

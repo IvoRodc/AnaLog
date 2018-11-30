@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.Switch;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,14 +51,22 @@ public class BottomSheet_EdtExp extends BottomSheetDialogFragment {
 
         final TextInputEditText abertura = (TextInputEditText)v.findViewById(R.id.Abertura_Edt_Exp);
         final TextInputEditText Vel = (TextInputEditText)v.findViewById(R.id.VelD_Edt_Exp);
-        final TextInputEditText Lente = (TextInputEditText)v.findViewById(R.id.Lente_Edt_Exp);
+        final TextInputEditText Lente = (TextInputEditText)v.findViewById(R.id.Lente_New_Exp);
         final TextInputEditText DistF = (TextInputEditText)v.findViewById(R.id.DistF_Edt_Exp);
         final TextInputEditText Desc = (TextInputEditText)v.findViewById(R.id.Desc_Edt_Exp);
+        final TextInputLayout Aberturalayout = (TextInputLayout)v.findViewById(R.id.AberturaLayout);
+        final TextInputLayout VelDlayout = (TextInputLayout)v.findViewById(R.id.VelDLayout);
+        final TextInputLayout Desclayout = (TextInputLayout)v.findViewById(R.id.DescLayout);
 
         abertura.setText(Float.toString(exp.getAbertura()));
         Vel.setText(Integer.toString(exp.getVelDisparo()));
-        Lente.setText(Integer.toString(exp.getIdObjetiva()));
-        DistF.setText(Integer.toString(exp.getDistFocal()));
+        if(exp.getIdObjetiva()!=-1){
+            Lente.setText(Integer.toString(exp.getIdObjetiva()));
+        }
+        if(exp.getDistFocal()!=-0){
+            DistF.setText(Integer.toString(exp.getDistFocal()));
+        }
+
         Desc.setText(exp.getDescricao());
 
         delete.setTag(exp.getIdExposicao());
@@ -64,10 +75,92 @@ public class BottomSheet_EdtExp extends BottomSheetDialogFragment {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //update rolo
+                int control=0;
+                if(abertura.getText().toString().isEmpty())
+                {
+                    Aberturalayout.setError(getString(R.string.Erro_Abr));
+                    control=1;
+                    abertura.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (s.length() > 0) {
+                                Aberturalayout.setError(null);
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+                if(Vel.getText().toString().isEmpty())
+                {
+                    VelDlayout.setError(getString(R.string.Erro_Vel));
+                    control=1;
+                    Vel.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (s.length() > 0) {
+                                VelDlayout.setError(null);
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+                if(Desc.getText().toString().isEmpty())
+                {
+                    Desclayout.setError(getString(R.string.Erro_desc));
+                    Desc.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (s.length() > 0) {
+                                Desclayout.setError(null);
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+
+                if (control==1)
+                    return;
+
+
+                int lente=-1;
+                int distFocal=0;
+                if (!Lente.getText().toString().isEmpty()){
+                    lente= Integer.parseInt(Lente.getText().toString());
+                }
+                if (!DistF.getText().toString().isEmpty()){
+                    distFocal= Integer.parseInt(DistF.getText().toString());
+                }
 
                 exp.updateExposicao(Desc.getText().toString(), Integer.parseInt(Vel.getText().toString()),
-                        Float.parseFloat(abertura.getText().toString()),Integer.parseInt(DistF.getText().toString()),
-                        Integer.parseInt(Lente.getText().toString()), getContext());
+                        Float.parseFloat(abertura.getText().toString()),distFocal,
+                        lente, getContext());
 
                 Intent intent = new Intent(getContext(),ExposicaoActivity.class);
                 intent.putExtra("idrolo", exp.getIdRolo());
