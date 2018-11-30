@@ -58,5 +58,6 @@
     <string name="Erro_titulo">Insira um título valido</string>
     <string name="Erro_Vel">Insira uma velocidade valida</string>
     <string name="Erro_Abr">Insira uma abertura valida</string>
+    <string name="Msg_notif">Os rolos abaixo encontra-se a terminar:</string>
 
 </resources>

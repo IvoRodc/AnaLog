@@ -3,6 +3,7 @@ package pt.isec.gps.grupo14.analog.DataBase;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -123,11 +124,15 @@ public class DBHandler extends SQLiteOpenHelper {
         Log.w("Rolo ->", CREATE_TABLE_ROLO);
         Log.w("Exposicao ->", CREATE_TABLE_EXPOSICAO);
 
-        db.execSQL(CREATE_TABLE_CAMERA);
-        db.execSQL(CREATE_TABLE_OBJETIVA);
-        db.execSQL(CREATE_TABLE_ROLO);
-        db.execSQL(CREATE_TABLE_EXPOSICAO);
+        try {
+            db.execSQL(CREATE_TABLE_CAMERA);
+            db.execSQL(CREATE_TABLE_OBJETIVA);
+            db.execSQL(CREATE_TABLE_ROLO);
+            db.execSQL(CREATE_TABLE_EXPOSICAO);
+        }catch (SQLException e){
 
+            Log.e("--DATABASE-- :", "Erro ao criar tabelas" + e);
+        }
 
 
 
@@ -212,6 +217,7 @@ public class DBHandler extends SQLiteOpenHelper {
      * @return id do rolo adicionado
      */
     public int addRolo (Rolo rolo){
+        int idLastInsert;
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -226,8 +232,12 @@ public class DBHandler extends SQLiteOpenHelper {
         value.put(IDcam, rolo.getIdCamera());
 
         //Insert Row
-        int idLastInsert = (int)db.insert(table_rolo, null, value);
-
+        try{
+            idLastInsert = (int)db.insert(table_rolo, null, value);
+        }catch (Exception e){
+            Log.e("--DATABASE-- :", "Erro ao criar rolo");
+            return -1;
+        }
         db.close();
 
         return idLastInsert;
@@ -240,7 +250,7 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     public int updateRolo(Rolo rolo){
         SQLiteDatabase db = this.getWritableDatabase();
-
+        int affectedRows;
         ContentValues value = new ContentValues();
 
         value.put(Titulo, rolo.getTitulo());
@@ -251,8 +261,12 @@ public class DBHandler extends SQLiteOpenHelper {
         value.put(Revelado, rolo.isRevelado());
         value.put(DataRolo, rolo.getData());
         value.put(IDcam, rolo.getIdCamera());
-
-        int affectedRows = db.update(table_rolo, value,"IDrolo = ?", new String [] {""+rolo.getIdRolo()});
+    try {
+        affectedRows = db.update(table_rolo, value,"IDrolo = ?", new String [] {""+rolo.getIdRolo()});
+    }catch (Exception e){
+        Log.e("--DATABASE-- :", "Erro ao update rolo");
+        return -1;
+    }
         db.close();
 
         return affectedRows;
@@ -430,14 +444,19 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     public int addCamera(Camera cam) {
         SQLiteDatabase db = this.getWritableDatabase();
-
+        int idCamera;
         ContentValues value = new ContentValues();
 
         value.put(MarcaCam, cam.getMarca());
         value.put(ModeloCam, cam.getModelo());
 
         //Insert Row
-        int idCamera = (int)db.insert(table_camera, null, value);
+        try {
+         idCamera = (int)db.insert(table_camera, null, value);
+         }catch (Exception e){
+             Log.e("--DATABASE-- :", "Erro ao criar camera");
+             return -1;
+         }
         db.close();
 
         return idCamera;
@@ -505,15 +524,19 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     public int addObjetiva (Objetiva obj){
         SQLiteDatabase db = this.getWritableDatabase();
-
+        int idObjectiva;
         ContentValues value = new ContentValues();
 
         value.put(MarcaObj, obj.getMarca());
         value.put(ModeloObj, obj.getModelo());
 
+        try {
         //Insert Row
-        int idObjectiva = (int)db.insert(table_objetiva, null, value);
-
+            idObjectiva = (int)db.insert(table_objetiva, null, value);
+        }catch (Exception e){
+            Log.e("--DATABASE-- :", "Erro ao criar objectiva");
+            return -1;
+        }
         return idObjectiva;
 
     }

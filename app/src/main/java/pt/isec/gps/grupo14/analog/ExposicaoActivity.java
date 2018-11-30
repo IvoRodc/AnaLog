@@ -96,8 +96,8 @@ public class ExposicaoActivity extends AppCompatActivity {
         //dados da BD, utilizando o IDRolo
         nFotos.setText(rolo.getnExposicoes() + "/" + rolo.getMaxExposicoes());
         nomeRolo.setText(rolo.getTitulo());
-       // Camera c = db.getCamera(rolo.getIdCamera());
-        //nomeCamera.setText(c.getMarca()+ " " +c.getModelo());
+        Camera c = db.getCamera(rolo.getIdCamera());
+        nomeCamera.setText(c.getMarca()+ " " +c.getModelo());
         dataCriacao.setText(rolo.getData());
         descRolo.setText(rolo.getDescricao());
         //termino dados BD

@@ -85,11 +85,10 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         // Obter dados da base de dados
         Rolo r = listaRolos.get(position);
-        //Camera c = db.getCamera(r.getIdCamera());
+        Camera c = db.getCamera(r.getIdCamera());
         ((ViewHolder)viewHolder).nFotos.setText(r.getnExposicoes() + "/" + r.getMaxExposicoes());
         ((ViewHolder)viewHolder).nomeRolo.setText(r.getTitulo());
-        //((ViewHolder)viewHolder).nomeCamera.setText(c.getMarca()+ " " +c.getModelo());
-        ((ViewHolder)viewHolder).nomeCamera.setText("CAmera");
+        ((ViewHolder)viewHolder).nomeCamera.setText(c.getMarca()+ " " +c.getModelo());
         ((ViewHolder)viewHolder).dataCriacao.setText(r.getData());
         ((ViewHolder)viewHolder).descRolo.setText(r.getDescricao());
         ((ViewHolder)viewHolder).setId(r.getIdRolo());

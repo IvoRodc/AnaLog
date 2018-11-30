@@ -59,13 +59,11 @@ public class RolosActivity extends AppCompatActivity {
             //inicia o intent do perfil
         }
 
-        if (prefs.getBoolean("PREFS_PROFILE_NOTF", false)==true)
-        {
-            //corre metodo de analise de rolos para ver se estao cheios.
-
-        }
 
     }
+
+
+
 
     @Override
     public void onRestart() {
