@@ -45,10 +45,15 @@
     <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottom_sheet_style</item>
     </style>
-
     <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">true</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <!-- Estilo botão remover Camera e Objetiva -->
+    <style name="AppTheme.ButtonRemove" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/blue500</item>
     </style>
 
 </resources>

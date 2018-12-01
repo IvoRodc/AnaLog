@@ -138,7 +138,7 @@ public class ExposicaoActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_rolos_settings:
                 //Mudar para a activity definições
-                Intent intent = new Intent(this, PerfilActivity.class);
+                Intent intent = new Intent(this, PreferenciasActivity.class);
                 startActivity(intent);
                 break;
             case R.id.menu_exp_edit:

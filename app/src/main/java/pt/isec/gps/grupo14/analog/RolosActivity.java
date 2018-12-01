@@ -49,21 +49,16 @@ public class RolosActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.lista_rolos);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
         RecyclerView.Adapter adapter = new ListaRolosAdapter(this);
         recyclerView.setAdapter(adapter);
-
         bottomSheet = new BottomSheet_AddRolo();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (prefs.getString("PREFS_PROFILE_NAME", null)==null){//senao houver dados definidos, o user é reencaminhado para o perfil
             //inicia o intent do perfil
         }
-
-
     }
-
-
-
 
     @Override
     public void onRestart() {
@@ -100,7 +95,7 @@ public class RolosActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_rolos_settings:
                 //Mudar para a activity definições
-                Intent intent = new Intent(this, PerfilActivity.class);
+                Intent intent = new Intent(this, PreferenciasActivity.class);
                 startActivity(intent);
                 break;
             case R.id.menu_rolos_search:

@@ -47,9 +47,7 @@
         <item>127</item>
         <item>220</item>
     </string-array>
-    <string name="title_activity_perfil">PerfilActivity</string>
-    <string name="perfil">Perfil</string>
-    <string name="Username_str">Nome de Utilizador</string>
+
     <string name="Cam_escolha">Escolha a câmera</string>
     <string name="Erro_desc">Insira uma descrição valida</string>
     <string name="Erro_form">Insira um formato</string>
@@ -59,5 +57,18 @@
     <string name="Erro_Vel">Insira uma velocidade valida</string>
     <string name="Erro_Abr">Insira uma abertura valida</string>
     <string name="Msg_notif">Os rolos abaixo encontra-se a terminar:</string>
+
+    <string name="title_activity_perfil">PerfilActivity</string>
+    <string name="perfil">Perfil</string>
+
+    <!-- Strings atividade Preferencias -->
+    <string name="titulo_perfil">Perfil</string>
+    <string name="titulo_camera">Cameras</string>
+    <string name="titulo_objetivas">Objetivas</string>
+
+    <string name="Username_str">Nome de utilizador</string>
+    <string name="notificacoes_toggle">Ativar notificações:</string>
+
+    <string name="erroEquipamento">Campo de preenchimento obrigatório</string>
 
 </resources>

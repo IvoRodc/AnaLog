@@ -54,6 +54,7 @@ public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
         final TextInputLayout NExplayout = (TextInputLayout)v.findViewById(R.id.NExpNewLayout);
         final TextInputLayout Formatoinput_layout = (TextInputLayout)v.findViewById(R.id.FormatoNewLayout);
         final TextInputLayout Descinput_layout = (TextInputLayout)v.findViewById(R.id.descricaoNewLayout);
+
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 int control=0;
@@ -173,8 +174,9 @@ public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
                     });
                 }
 
-                if (control==1)
+                if (control==1) {
                     return;
+                }
 
                 int cam=-1;
                 if (!Camera.getText().toString().isEmpty()){

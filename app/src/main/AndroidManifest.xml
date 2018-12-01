@@ -24,7 +24,8 @@
             android:parentActivityName=".RolosActivity" />
         <activity
             android:name=".PerfilActivity"
-            android:label="@string/title_activity_perfil"></activity>
+            android:label="@string/title_activity_perfil" />
+        <activity android:name=".PreferenciasActivity"></activity>
     </application>
 
 </manifest>
