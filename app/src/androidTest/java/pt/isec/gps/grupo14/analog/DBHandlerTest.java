@@ -3,6 +3,7 @@ package pt.isec.gps.grupo14.analog;
 import android.content.Context;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,24 +29,27 @@ public class DBHandlerTest {
 
     Context context;
     DBHandler db;
-    Rolo r;
-    Exposicao e;
+    Rolo r,r2;
+    Exposicao e, e1;
+    Camera c, c1;
+    Objetiva o,o1;
 
     @Before
     public void setup(){
 
         context = InstrumentationRegistry.getTargetContext();
-       db = new DBHandler(context);
+        db = new DBHandler(context);
         r = new Rolo("TESTE",400, 35, 2, "Teste de rolo e cenas", 1 , context );
-        Rolo r2 = new Rolo("TESTE",400, 35, 2, "Teste de rolo e cenas", 1 , context );
+        r2 = new Rolo("TESTE",400, 35, 2, "Teste de rolo e cenas", 1 , context );
 
         e = new Exposicao(100, 100, 100, "Teste exp", 1, 1, context);
-        Exposicao e1 = new Exposicao(100, 100, 100, "Teste exp", 1, 1, context);
+        e1 = new Exposicao(1,100, 100, 100, "teste exp","5/10/2018", 1, 1);
 
-        Objetiva o = new Objetiva("Objectiva", "ModeloObj", context);
-        Objetiva o1 = new Objetiva("Objectiva2", "ModeloObj2", context);
-        Camera c = new Camera("RolleiCord", "IIb", context);
-        Camera c1 = new Camera("Nikon", "FE",context);
+        o = new Objetiva("Objectiva", "ModeloObj", context);
+        o1 = new Objetiva("Objectiva2", "ModeloObj2", context);
+
+        c = new Camera("RolleiCord", "IIb", context);
+        c1 = new Camera(1,"Nikon", "FE");
 
     }
 
@@ -117,7 +121,7 @@ public class DBHandlerTest {
         int obj = listaExp.size();
 
 
-        assertEquals(2,obj);
+        assertEquals(1,obj);
 
     }
 
@@ -136,37 +140,70 @@ public class DBHandlerTest {
 
     @Test
     public void removeExposicao() {
+        int obj = db.removeExposicao(1);
+        assertEquals(1,obj);
     }
 
     @Test
     public void getCamera() {
+        Camera cam = db.getCamera(1);
+
+        assertNotNull(cam);
+        assertEquals(c1.getIdCamera(), cam.getIdCamera());
     }
 
     @Test
     public void getCameras() {
+        ArrayList<Camera> listaCameras = new ArrayList<>(db.getCameras().values());
+        int obj = listaCameras.size();
+
+        assertEquals(1,obj,0);
     }
 
     @Test
     public void addCamera() {
+        Camera cam = new Camera("Canon", "Z100", context);
+        int obj = db.addCamera(cam);
+
+        assertEquals(3,obj);
+        assertEquals(3,db.getCameras().size());
     }
 
     @Test
     public void removeCamera() {
+        int obj = db.removeCamera(1);
+        assertEquals(1,obj);
     }
 
     @Test
     public void getObjetiva() {
+        Objetiva objet = db.getObjetiva(1);
+
+        assertNotNull(0);
+        assertEquals(o.getIdObjetiva(), objet.getIdObjetiva());
     }
 
     @Test
     public void getObjetivas() {
+        ArrayList<Objetiva> listaObject = new ArrayList<>(db.getObjetivas().values());
+        int obj = listaObject.size();
+
+        assertEquals(2,obj);
     }
 
     @Test
     public void addObjetiva() {
+        Objetiva object = new Objetiva(1,"marca", "modelo");
+
+        int obj = db.addObjetiva(object);
+
+        assertEquals(3,obj);
+        assertEquals(3,db.getObjetivas().size());
     }
 
     @Test
     public void removeObjetiva() {
+        int obj = db.removeObjetiva(1);
+        assertEquals(1,obj);
     }
 }
