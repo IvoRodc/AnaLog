@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -22,6 +23,7 @@ import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 public class ListaRolosAdapter extends RecyclerView.Adapter {
 
     ArrayList<Rolo> listaRolos;
+    ArrayList<Rolo> backupList;
     DBHandler db;
 
     ListaRolosAdapter(Context context)
@@ -30,6 +32,7 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
         listaRolos = new ArrayList<>();
         try {
             listaRolos = new ArrayList<>(db.getRolos().values());
+            backupList = new ArrayList<>(db.getRolos().values());
 
         }catch (NullPointerException exception){
             Log.d("ANALOG LOG", "BASE DE DADOS VAZIA");
@@ -102,6 +105,31 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
 
     public void addNewRolo(Rolo r){
         listaRolos.add(0, r);
+        backupList.add(0, r);
         notifyItemInserted(0);
+    }
+
+    public void searchRolo(String search){
+        Log.w("ANALOG DEBUG", "palavra a procurar: "+search);
+        if(search.equals("")) {
+            Log.w("ANALOG DEBUG", "palavra a procurar: NULL");
+            listaRolos.clear();
+            listaRolos = new ArrayList<>(backupList);
+            notifyDataSetChanged();
+        }else{
+            Log.w("ANALOG DEBUG", "Está a procurar");
+            ArrayList<Rolo> lstEncontrados = new ArrayList<>();
+            for (Rolo r : listaRolos) {
+                String titulo = r.getTitulo().toLowerCase();
+                Log.w("ANALOG DEBUG", "testar: "+titulo+"="+search);
+                if (titulo.contains(search)) {
+                    Log.w("ANALOG DEBUG", "Encontrou 1");
+                    lstEncontrados.add(r);
+                }
+            }
+            listaRolos.clear();
+            listaRolos.addAll(lstEncontrados);
+            notifyDataSetChanged();
+        }
     }
 }

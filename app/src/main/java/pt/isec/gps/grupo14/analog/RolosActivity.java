@@ -1,6 +1,7 @@
 package pt.isec.gps.grupo14.analog;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import pt.isec.gps.grupo14.analog.AnaLog.Camera;
 import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_AddRolo;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,9 +23,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -32,10 +30,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RolosActivity extends AppCompatActivity {
+public class RolosActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
 
     BottomSheet_AddRolo bottomSheet;
+    ListaRolosAdapter adapter;
+    MenuItem setttingsMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class RolosActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerView.Adapter adapter = new ListaRolosAdapter(this);
+        adapter = new ListaRolosAdapter(this);
         recyclerView.setAdapter(adapter);
         bottomSheet = new BottomSheet_AddRolo();
 
@@ -87,6 +87,11 @@ public class RolosActivity extends AppCompatActivity {
                 drawable.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
             }
         }
+        MenuItem def = menu.findItem(R.id.menu_rolos_settings);
+        MenuItem menuItem = menu.findItem(R.id.menu_rolos_search);
+        SearchView searchView = (SearchView)menuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+
         return true;
     }
 
@@ -98,12 +103,6 @@ public class RolosActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, PreferenciasActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.menu_rolos_search:
-                //Mostar caixa de pesquisa
-                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);
 
@@ -175,5 +174,17 @@ public class RolosActivity extends AppCompatActivity {
         });
 
         ad.show();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        adapter.searchRolo(query.toLowerCase());
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.searchRolo(newText.toLowerCase());
+        return true;
     }
 }

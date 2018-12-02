@@ -10,5 +10,6 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
     android:id="@+id/menu_rolos_search"
     android:icon="@drawable/ic_search"
     android:title="@string/menu_titulo_pesquisa"
-    app:showAsAction="ifRoom"/>
+    app:showAsAction="ifRoom|collapseActionView"
+    app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 </menu>
