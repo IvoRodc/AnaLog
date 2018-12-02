@@ -119,11 +119,6 @@ public class DBHandler extends SQLiteOpenHelper {
                 + table_objetiva + "(" + IDobj + "))";
         //endregion
 
-        Log.w("Camera ->", CREATE_TABLE_CAMERA);
-        Log.w("Objetiva ->", CREATE_TABLE_OBJETIVA);
-        Log.w("Rolo ->", CREATE_TABLE_ROLO);
-        Log.w("Exposicao ->", CREATE_TABLE_EXPOSICAO);
-
         try {
             db.execSQL(CREATE_TABLE_CAMERA);
             db.execSQL(CREATE_TABLE_OBJETIVA);
@@ -133,9 +128,6 @@ public class DBHandler extends SQLiteOpenHelper {
 
             Log.e("--DATABASE-- :", "Erro ao criar tabelas" + e);
         }
-
-
-
         //db.close();
     }
 
@@ -190,17 +182,16 @@ public class DBHandler extends SQLiteOpenHelper {
                 ids.add(cursor.getInt(0));
             } while (cursor.getCount() > 0 && cursor.moveToNext());
 
+            int count = cursor.getCount();
             db.close();
 
-            if (cursor.getCount() > 0) {
+            if (count > 0) {
                 HashMap<Integer, Rolo> listaRolos = new HashMap<>();
 
                 for (int i = 0; i < ids.size(); i++) {
                     //reutiliza o método getRolo para preencher o mapa de Rolos
                     listaRolos.put(ids.get(i), getRolo(ids.get(i)));
                 }
-                ;
-
                 return listaRolos;
             } else {
 
@@ -261,12 +252,12 @@ public class DBHandler extends SQLiteOpenHelper {
         value.put(Revelado, rolo.isRevelado());
         value.put(DataRolo, rolo.getData());
         value.put(IDcam, rolo.getIdCamera());
-    try {
-        affectedRows = db.update(table_rolo, value,"IDrolo = ?", new String [] {""+rolo.getIdRolo()});
-    }catch (Exception e){
-        Log.e("--DATABASE-- :", "Erro ao update rolo");
-        return -1;
-    }
+        try {
+            affectedRows = db.update(table_rolo, value,"IDrolo = ?", new String [] {""+rolo.getIdRolo()});
+        }catch (Exception e){
+            Log.e("--DATABASE-- :", "Erro ao update rolo");
+            return -1;
+        }
         db.close();
 
         return affectedRows;
