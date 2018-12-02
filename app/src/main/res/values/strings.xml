@@ -71,5 +71,6 @@
     <string name="equipamento_marca">Marca</string>
     <string name="equipamento_modelo">Modelo</string>
     <string name="erroEquipamento">Campo de preenchimento obrigatório</string>
+    <string name="Remv">Remover</string>
 
 </resources>

@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.button.MaterialButton;
+
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
-import pt.isec.gps.grupo14.analog.AnaLog.Camera;
 import pt.isec.gps.grupo14.analog.AnaLog.Objetiva;
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 import pt.isec.gps.grupo14.analog.R;
@@ -36,12 +36,14 @@ public class ListaObjetivasAdapter extends RecyclerView.Adapter {
 
         AppCompatTextView marca;
         AppCompatTextView modelo;
+        MaterialButton delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             marca = itemView.findViewById(R.id.equipamento_marca);
             modelo = itemView.findViewById(R.id.equipamento_modelo);
+            delete = itemView.findViewById(R.id.Rem_eqp);
         }
     }
 
@@ -55,10 +57,17 @@ public class ListaObjetivasAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        Objetiva obj = listaObjetivas.get(position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
+        final Objetiva obj = listaObjetivas.get(position);
         ((ViewHolder)viewHolder).marca.setText(obj.getMarca());
         ((ViewHolder)viewHolder).modelo.setText(obj.getModelo());
+        ((ViewHolder)viewHolder).delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rmvObjetiva(position);
+                db.removeObjetiva(obj.getIdObjetiva());
+            }
+        });
     }
 
     @Override
@@ -69,5 +78,12 @@ public class ListaObjetivasAdapter extends RecyclerView.Adapter {
     public void addNewObjetiva(Objetiva obj){
         listaObjetivas.add(0, obj);
         notifyItemInserted(0);
+    }
+
+    public void rmvObjetiva(int pos){
+        listaObjetivas.remove(pos);
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos, listaObjetivas.size());
+        notifyDataSetChanged();
     }
 }

@@ -410,6 +410,12 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
+        if(cursor.getCount() == 0)
+        {
+            cursor.close();
+            db.close();
+            return new Camera(0, "N", "D");
+        }
         Camera Cam = new Camera(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
 
         cursor.close();

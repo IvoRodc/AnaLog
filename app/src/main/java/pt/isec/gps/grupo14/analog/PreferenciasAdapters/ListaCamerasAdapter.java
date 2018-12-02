@@ -1,17 +1,17 @@
 package pt.isec.gps.grupo14.analog.PreferenciasAdapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.button.MaterialButton;
+
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import pt.isec.gps.grupo14.analog.AnaLog.Camera;
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
@@ -36,12 +36,15 @@ public class ListaCamerasAdapter extends RecyclerView.Adapter {
 
         AppCompatTextView marca;
         AppCompatTextView modelo;
+        MaterialButton delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             marca = itemView.findViewById(R.id.equipamento_marca);
             modelo = itemView.findViewById(R.id.equipamento_modelo);
+            delete = itemView.findViewById(R.id.Rem_eqp);
+
         }
     }
 
@@ -56,10 +59,17 @@ public class ListaCamerasAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        Camera c = listaCameras.get(position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
+        final Camera c = listaCameras.get(position);
         ((ViewHolder)viewHolder).marca.setText(c.getMarca());
         ((ViewHolder)viewHolder).modelo.setText(c.getModelo());
+        ((ViewHolder)viewHolder).delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rmvCamera(position);
+                db.removeCamera(c.getIdCamera());
+            }
+        });
     }
 
     @Override
@@ -70,5 +80,11 @@ public class ListaCamerasAdapter extends RecyclerView.Adapter {
     public void addNewCamera(Camera c){
         listaCameras.add(0, c);
         notifyItemInserted(0);
+    }
+    public void rmvCamera(int pos){
+        listaCameras.remove(pos);
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos, listaCameras.size());
+        notifyDataSetChanged();
     }
 }
