@@ -11,21 +11,26 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/AppTheme.splashScreen">
+            android:theme="@style/AppTheme.splashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RolosActivity" />
+        <activity android:name=".RolosActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ExposicaoActivity"
-            android:parentActivityName=".RolosActivity" />
+            android:parentActivityName=".RolosActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".PerfilActivity"
-            android:label="@string/title_activity_perfil" />
-        <activity android:name=".PreferenciasActivity"></activity>
+            android:label="@string/title_activity_perfil"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PreferenciasActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

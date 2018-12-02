@@ -28,11 +28,11 @@ public class FragmentCamerasAdapter extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_cameras, container, false);
+
         recyclerView = v.findViewById(R.id.lista_cameras);
         ListaCamerasAdapter listaCamerasAdapter = new ListaCamerasAdapter(getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(listaCamerasAdapter);
-
 
         return v;
     }

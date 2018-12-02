@@ -61,7 +61,8 @@
         android:layout_gravity="bottom"
         app:backgroundTint="@color/bottomAppBarColor"
         app:tint="@color/white"
-        app:fabAlignmentMode="end"/>
+        app:fabAlignmentMode="end"
+        android:gravity="bottom"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_preferencias"

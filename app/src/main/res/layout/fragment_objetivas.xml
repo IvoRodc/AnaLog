@@ -5,18 +5,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lista_rolos"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lista_objetivas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:background="@color/white"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:layout_marginBottom="?attr/actionBarSize">
 
 
-    </androidx.recyclerview.widget.RecyclerView>-->
-
-    <include layout="@layout/equipamento_card_layout"></include>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
