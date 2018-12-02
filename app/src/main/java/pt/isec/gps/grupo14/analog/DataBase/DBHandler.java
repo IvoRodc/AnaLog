@@ -158,9 +158,12 @@ public class DBHandler extends SQLiteOpenHelper {
                 cursor.getInt(4), cursor.getString(5), Boolean.parseBoolean(cursor.getString(6)),
                 cursor.getString(7), cursor.getInt(8), countCursor.getInt(0));
 
+            cursor.close();
+            countCursor.close();
             db.close();
             return r;
         } else {
+            cursor.close();
             db.close();
             return null;
         }
@@ -183,6 +186,7 @@ public class DBHandler extends SQLiteOpenHelper {
             } while (cursor.getCount() > 0 && cursor.moveToNext());
 
             int count = cursor.getCount();
+            cursor.close();
             db.close();
 
             if (count > 0) {
@@ -198,6 +202,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 return null;
             }
         } else {
+            cursor.close();
+            db.close();
             return null;
         }
     }
@@ -291,9 +297,12 @@ public class DBHandler extends SQLiteOpenHelper {
         Exposicao e= new Exposicao(cursor.getInt(0),cursor.getInt(1),cursor.getFloat(2),
                 cursor.getInt(3),cursor.getString(4),cursor.getString(5),
                 cursor.getInt(6),cursor.getInt(7));
+
+        int count = cursor.getCount();
+        cursor.close();
         db.close();
 
-        if(cursor.getCount() > 0){
+        if(count > 0){
             return e;
         } else {
             return null;
@@ -317,10 +326,13 @@ public class DBHandler extends SQLiteOpenHelper {
             do{
                 listaExposicoes.put(cursor.getInt(0), getExposicao(cursor.getInt(0)));
             }while(cursor.moveToNext());
+
+            cursor.close();
             db.close();
             return listaExposicoes;
         }
         else {
+            cursor.close();
             db.close();
             return null;
         }
@@ -399,6 +411,8 @@ public class DBHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
         Camera Cam = new Camera(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
+
+        cursor.close();
         db.close();
 
         return  Cam;
@@ -420,10 +434,12 @@ public class DBHandler extends SQLiteOpenHelper {
             do{
                 listaCameras.put(cursor.getInt(0),getCamera(cursor.getInt(0)));
             }while(cursor.moveToNext());
+            cursor.close();
             db.close();
             return listaCameras;
         }
         else {
+            cursor.close();
             db.close();
             return null;
         }
