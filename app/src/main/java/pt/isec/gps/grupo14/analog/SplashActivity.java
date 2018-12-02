@@ -1,12 +1,5 @@
 package pt.isec.gps.grupo14.analog;
 
-import androidx.appcompat.app.AppCompatActivity;
-import pt.isec.gps.grupo14.analog.AnaLog.Camera;
-import pt.isec.gps.grupo14.analog.AnaLog.Exposicao;
-import pt.isec.gps.grupo14.analog.AnaLog.Objetiva;
-import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
-import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
-
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -22,6 +15,10 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
+import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
+import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
 import static java.lang.Thread.sleep;
 
@@ -128,7 +125,7 @@ public class SplashActivity extends AppCompatActivity {
         ArrayList<Rolo> listaRolos = new ArrayList<>(db.getRolos().values());
         StringBuilder stringBuilder = new StringBuilder();
         for(int i=0; i<listaRolos.size(); i++) {
-            if (listaRolos.get(i).getnExposicoes() > (listaRolos.get(i).getMaxExposicoes() - 5)) {
+            if (listaRolos.get(i).getnExposicoes() > (listaRolos.get(i).getMaxExposicoes() - 5) && listaRolos.get(i).getnExposicoes()<listaRolos.get(i).getMaxExposicoes()) {
                 stringBuilder.append(listaRolos.get(i).getTitulo()+" \n");
             }
         }
