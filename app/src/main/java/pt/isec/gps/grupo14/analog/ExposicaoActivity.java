@@ -1,5 +1,26 @@
 package pt.isec.gps.grupo14.analog;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
@@ -10,32 +31,8 @@ import pt.isec.gps.grupo14.analog.AnaLog.Camera;
 import pt.isec.gps.grupo14.analog.AnaLog.Objetiva;
 import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
 import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_AddExp;
-import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_EdtExp;
 import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_EdtRolo;
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
-
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.ArrayList;
 
 public class ExposicaoActivity extends AppCompatActivity {
 
@@ -56,7 +53,13 @@ public class ExposicaoActivity extends AppCompatActivity {
         int IDRolo=-1;
         Intent intent = getIntent();
         db = new DBHandler(this);
+        int actionBarHeight=0;
+        TypedValue tv = new TypedValue();
+        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+        {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
 
+        }
 
         if (intent != null) {
             IDRolo = intent.getIntExtra("idrolo", -1); //Get id rolo
@@ -96,8 +99,7 @@ public class ExposicaoActivity extends AppCompatActivity {
         //dados da BD, utilizando o IDRolo
         nFotos.setText(rolo.getnExposicoes() + "/" + rolo.getMaxExposicoes());
         nomeRolo.setText(rolo.getTitulo());
-        Camera c = db.getCamera(rolo.getIdCamera());
-        nomeCamera.setText(c.getMarca()+ " " +c.getModelo());
+        nomeCamera.setText(rolo.getIdCamera());
         dataCriacao.setText(rolo.getData());
         descRolo.setText(rolo.getDescricao());
         //termino dados BD
@@ -107,7 +109,7 @@ public class ExposicaoActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.Adapter adapter = new ListaExpAdapter( this,IDRolo, this);
-
+        recyclerView.setPadding(0,(int)Math.round((actionBarHeight*2)+(actionBarHeight*0.47)),0,actionBarHeight);
         recyclerView.setAdapter(adapter);
 
         bottomSheet = new BottomSheet_AddExp();
@@ -197,6 +199,16 @@ public class ExposicaoActivity extends AppCompatActivity {
         });
         alert.show();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this,RolosActivity.class);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
     public void onClickDeleteExp(View view){
         final View v = view;
         final Context context = this;
@@ -219,10 +231,18 @@ public class ExposicaoActivity extends AppCompatActivity {
     }
 
 
-    public void  onClickDialogCam(View view){
+    public void onClickDialogCam(View view){
         final View v = view;
         DBHandler db = new DBHandler(this);
-        final ArrayList<Camera> Cameras = new ArrayList<>(db.getCameras().values());
+        final ArrayList<Camera> Cameras;
+        try {
+             Cameras = new ArrayList<>(db.getCameras().values());
+
+        }catch (NullPointerException e){
+
+            Log.e("DEBUG:", "Sem Cameras na lista");
+        return;
+        }
         final ArrayList<String> CameraNames = new ArrayList<String>();
 
         for (int i=0; i<Cameras.size(); i++)
@@ -236,7 +256,7 @@ public class ExposicaoActivity extends AppCompatActivity {
         ad.setSingleChoiceItems(CameraNames.toArray(new String[CameraNames.size()]), -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ((TextInputEditText)v.findViewById(R.id.IDCAM_Edt_Rolo)).setText(Integer.toString(Cameras.get(which).getIdCamera()));
+                ((TextInputEditText)v.findViewById(R.id.IDCAM_Edt_Rolo)).setText(CameraNames.get(which));
                 dialog.dismiss();
             }
         });
@@ -267,7 +287,7 @@ public class ExposicaoActivity extends AppCompatActivity {
         ad.setSingleChoiceItems(ObjNames.toArray(new String[ObjNames.size()]), -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ((TextInputEditText)v.findViewById(R.id.Lente_New_Exp)).setText(Integer.toString(Objetivas.get(which).getIdObjetiva()));
+                ((TextInputEditText)v.findViewById(R.id.Lente_New_Exp)).setText(ObjNames.get(which));
                 dialog.dismiss();
             }
         });

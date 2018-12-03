@@ -1,15 +1,5 @@
 package pt.isec.gps.grupo14.analog;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import pt.isec.gps.grupo14.analog.AnaLog.Camera;
-import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_AddRolo;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import pt.isec.gps.grupo14.analog.AnaLog.Exposicao;
-import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
-import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,7 +18,14 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import pt.isec.gps.grupo14.analog.AnaLog.Camera;
+import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_AddRolo;
+import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
 public class RolosActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
@@ -66,6 +63,8 @@ public class RolosActivity extends AppCompatActivity implements SearchView.OnQue
         finish();
         startActivity(getIntent());
     }
+
+
 
     public void onClickAddRolo(View v){
         if(!bottomSheet.isOpen()){
@@ -133,7 +132,7 @@ public class RolosActivity extends AppCompatActivity implements SearchView.OnQue
         ad.setSingleChoiceItems(CameraNames.toArray(new String[CameraNames.size()]), -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ((TextInputEditText)v.findViewById(R.id.IDCAM_New_Rolo)).setText(Integer.toString(Cameras.get(which).getIdCamera()));
+                ((TextInputEditText)v.findViewById(R.id.IDCAM_New_Rolo)).setText(CameraNames.get(which));
                 dialog.dismiss();
             }
         });

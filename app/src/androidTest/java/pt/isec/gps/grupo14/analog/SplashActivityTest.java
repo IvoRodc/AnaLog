@@ -25,11 +25,11 @@ public class SplashActivityTest {
 
         context = InstrumentationRegistry.getTargetContext();
          db = new DBHandler(context);
-        Rolo r = new Rolo("TESTE",400, 35, 5, "Teste de rolo e cenas", 1 , context );
+        Rolo r = new Rolo("TESTE",400, 35, 5, "Teste de rolo e cenas", "teste" , context );
 
 
-        Exposicao e = new Exposicao(100, 100, 100, "Teste exp", 1, 1, context);
-        Exposicao e1 = new Exposicao(100, 100, 100, "Teste exp", 1, 1, context);
+        Exposicao e = new Exposicao(100, 100, 100, "Teste exp", 1, "teste", context);
+        Exposicao e1 = new Exposicao(100, 100, 100, "Teste exp", 1, "teste", context);
 
 
     }

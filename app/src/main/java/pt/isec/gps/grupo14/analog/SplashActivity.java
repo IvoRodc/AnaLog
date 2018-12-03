@@ -122,10 +122,10 @@ public class SplashActivity extends AppCompatActivity {
 
     public boolean CheckTermRolls(){
         DBHandler db = new DBHandler(this);
-        ArrayList<Rolo> listaRolos = new ArrayList<>(db.getRolos().values());
+        ArrayList<Rolo> listaRolos = new ArrayList<>(db.getRolos());
         StringBuilder stringBuilder = new StringBuilder();
         for(int i=0; i<listaRolos.size(); i++) {
-            if (listaRolos.get(i).getnExposicoes() > (listaRolos.get(i).getMaxExposicoes() - 5) && listaRolos.get(i).getnExposicoes()<listaRolos.get(i).getMaxExposicoes()) {
+            if (listaRolos.get(i).getnExposicoes() > (listaRolos.get(i).getMaxExposicoes() - 5) && listaRolos.get(i).getnExposicoes()<listaRolos.get(i).getMaxExposicoes() && listaRolos.get(i).getnExposicoes()!=0) {
                 stringBuilder.append(listaRolos.get(i).getTitulo()+" \n");
             }
         }

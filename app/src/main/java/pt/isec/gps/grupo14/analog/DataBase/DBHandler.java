@@ -96,7 +96,7 @@ public class DBHandler extends SQLiteOpenHelper {
         + DescricaoRolo + " TEXT,"
         + Revelado + " BOOLEAN,"
         + DataRolo + " DATE,"
-        + IDcam + " INTEGER,"
+        + IDcam + " VARCHAR(20),"
         + "FOREIGN KEY (" + IDcam + ") REFERENCES "
         + table_camera + "(" + IDcam + "))";
         //endregion
@@ -112,7 +112,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 + DescricaoExp + " TEXT,"
                 + DataExp + " DATE,"
                 + IDrolo + " INTEGER, "
-                + IDobj + " INTEGER,"
+                + IDobj + " VARCHAR(20),"
                 + "FOREIGN KEY (" + IDrolo + ") REFERENCES "
                 + table_rolo + "(" + IDrolo + "),"
                 + "FOREIGN KEY (" + IDobj + ") REFERENCES "
@@ -156,7 +156,7 @@ public class DBHandler extends SQLiteOpenHelper {
             Rolo r=new Rolo(cursor.getInt(0), cursor.getString(1),
                 cursor.getInt(2), cursor.getInt(3),
                 cursor.getInt(4), cursor.getString(5), Boolean.parseBoolean(cursor.getString(6)),
-                cursor.getString(7), cursor.getInt(8), countCursor.getInt(0));
+                cursor.getString(7), cursor.getString(8), countCursor.getInt(0));
 
             cursor.close();
             countCursor.close();
@@ -173,39 +173,26 @@ public class DBHandler extends SQLiteOpenHelper {
      * Reutiliza o método getRolo()
      * @return todos os rolos numa HashMap com key=idRolo que armazena objetos do tipo Rolo
      */
-    public HashMap<Integer, Rolo> getRolos(){
+    public ArrayList<Rolo> getRolos(){
         String selectQuery = "SELECT "+IDrolo+" FROM " + table_rolo+ " order by IDrolo desc";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
+        ArrayList<Rolo> ListaRolos = new ArrayList<>();
         if(cursor.getCount()>0) {
             cursor.moveToFirst();
-            ArrayList<Integer> ids = new ArrayList<>();
+
             do {
-                ids.add(cursor.getInt(0));
+                ListaRolos.add(getRolo(cursor.getInt(0)));
             } while (cursor.getCount() > 0 && cursor.moveToNext());
 
-            int count = cursor.getCount();
             cursor.close();
             db.close();
-
-            if (count > 0) {
-                HashMap<Integer, Rolo> listaRolos = new HashMap<>();
-
-                for (int i = 0; i < ids.size(); i++) {
-                    //reutiliza o método getRolo para preencher o mapa de Rolos
-                    listaRolos.put(ids.get(i), getRolo(ids.get(i)));
-                }
-                return listaRolos;
-            } else {
-
-                return null;
-            }
         } else {
             cursor.close();
             db.close();
             return null;
         }
+        return ListaRolos;
     }
 
 
@@ -296,7 +283,7 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
         Exposicao e= new Exposicao(cursor.getInt(0),cursor.getInt(1),cursor.getFloat(2),
                 cursor.getInt(3),cursor.getString(4),cursor.getString(5),
-                cursor.getInt(6),cursor.getInt(7));
+                cursor.getInt(6),cursor.getString(7));
 
         int count = cursor.getCount();
         cursor.close();
@@ -313,18 +300,18 @@ public class DBHandler extends SQLiteOpenHelper {
      * Reutiliza o método getExposicao()
      * @return todos as exposições numa HashMap com key=idExposicao que armazena objetos do tipo Exposicao
      */
-    public HashMap<Integer, Exposicao> getExposicoes(int idR){
-        String selectQuery = "SELECT "+IDexp+" FROM " + table_exposicao + " WHERE " + IDrolo + "=" + idR ;
+    public ArrayList<Exposicao> getExposicoes(int idR){
+        String selectQuery = "SELECT "+IDexp+" FROM " + table_exposicao + " WHERE " + IDrolo + "=" + idR + " order by IDexp desc";
         SQLiteDatabase db  = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
         cursor.moveToFirst();
 
 
         if(cursor.getCount()>0){
-            HashMap<Integer, Exposicao> listaExposicoes = new HashMap<>();
+            ArrayList<Exposicao> listaExposicoes = new ArrayList<>();
 
             do{
-                listaExposicoes.put(cursor.getInt(0), getExposicao(cursor.getInt(0)));
+                listaExposicoes.add(getExposicao(cursor.getInt(0)));
             }while(cursor.moveToNext());
 
             cursor.close();
@@ -414,7 +401,7 @@ public class DBHandler extends SQLiteOpenHelper {
         {
             cursor.close();
             db.close();
-            return new Camera(0, "N", "D");
+            return null;
         }
         Camera Cam = new Camera(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
 
@@ -499,10 +486,16 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
-        Objetiva obj= new Objetiva(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
-        db.close();
+        if (cursor.getCount() > 0) {
+            Objetiva obj = new Objetiva(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
+            db.close();
+            return obj;
+        }else{
 
-        return  obj;
+            db.close();
+            cursor.close();
+            return null;
+        }
     }
 
     /**

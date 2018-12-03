@@ -118,10 +118,10 @@
         android:id="@+id/lista_exposicoes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="?attr/actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:background="@color/white"
-        android:fitsSystemWindows="true"/>
+        android:fitsSystemWindows="true"
+
+        android:paddingBottom="?attr/actionBarSize"/>
 
 
     <com.google.android.material.bottomappbar.BottomAppBar

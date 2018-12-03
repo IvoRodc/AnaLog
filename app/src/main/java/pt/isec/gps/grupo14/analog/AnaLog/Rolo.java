@@ -17,12 +17,12 @@ public class Rolo {
     private String descricao;
     private boolean revelado;
     private String data;
-    private int idCamera;
+    private String idCamera;
     private int maxExposicoes;
     private int nExposicoes;
 
     public Rolo(String titulo, int iso, int formato, int maxExposicoes, String descricao,
-                int idCamera, Context context) {
+                String idCamera, Context context) {
         this.titulo = titulo;
         this.iso = iso;
         this.formato = formato;
@@ -36,7 +36,7 @@ public class Rolo {
     }
 
     public Rolo(int id, String titulo, int iso, int formato, int maxExposicoes, String descricao,
-                boolean revelado, String data, int idCamera, int nExposicoes) {
+                boolean revelado, String data, String idCamera, int nExposicoes) {
         this.idRolo = id;
         this.titulo = titulo;
         this.iso = iso;
@@ -77,7 +77,7 @@ public class Rolo {
         return data;
     }
 
-    public int getIdCamera() {
+    public String getIdCamera() {
         return idCamera;
     }
 
@@ -90,7 +90,7 @@ public class Rolo {
     }
 
     public int updateRolo(String titulo, int iso, int form, int max, String desc,
-                          boolean rev, int idCamera, Context context) {
+                          boolean rev, String idCamera, Context context) {
         this.titulo = titulo;
         this.iso = iso;
         this.formato = form;

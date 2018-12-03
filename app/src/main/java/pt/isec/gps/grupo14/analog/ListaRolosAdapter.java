@@ -6,17 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
-import pt.isec.gps.grupo14.analog.AnaLog.Camera;
 import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 
@@ -30,9 +25,10 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
     {
         db = new DBHandler(context);
         listaRolos = new ArrayList<>();
+        backupList = new ArrayList<>();
         try {
-            listaRolos = new ArrayList<>(db.getRolos().values());
-            backupList = new ArrayList<>(db.getRolos().values());
+            listaRolos = new ArrayList<>(db.getRolos());
+            backupList = new ArrayList<>(db.getRolos());
 
         }catch (NullPointerException exception){
             Log.d("ANALOG LOG", "BASE DE DADOS VAZIA");
@@ -88,10 +84,10 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         // Obter dados da base de dados
         Rolo r = listaRolos.get(position);
-        Camera c = db.getCamera(r.getIdCamera());
+
         ((ViewHolder)viewHolder).nFotos.setText(r.getnExposicoes() + "/" + r.getMaxExposicoes());
         ((ViewHolder)viewHolder).nomeRolo.setText(r.getTitulo());
-        ((ViewHolder)viewHolder).nomeCamera.setText(c.getMarca()+ " " +c.getModelo());
+        ((ViewHolder)viewHolder).nomeCamera.setText(r.getIdCamera());
         ((ViewHolder)viewHolder).dataCriacao.setText(r.getData());
         ((ViewHolder)viewHolder).descRolo.setText(r.getDescricao());
         ((ViewHolder)viewHolder).setId(r.getIdRolo());
@@ -104,9 +100,12 @@ public class ListaRolosAdapter extends RecyclerView.Adapter {
     }
 
     public void addNewRolo(Rolo r){
+
         listaRolos.add(0, r);
         backupList.add(0, r);
+
         notifyItemInserted(0);
+
     }
 
     public void searchRolo(String search){

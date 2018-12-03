@@ -2,7 +2,6 @@ package pt.isec.gps.grupo14.analog.BottomSheet;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,24 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 import pt.isec.gps.grupo14.analog.AnaLog.Exposicao;
-import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
 import pt.isec.gps.grupo14.analog.ExposicaoActivity;
 import pt.isec.gps.grupo14.analog.R;
-import pt.isec.gps.grupo14.analog.RolosActivity;
-import pt.isec.gps.grupo14.analog.SplashActivity;
 
 public class BottomSheet_AddExp extends BottomSheetDialogFragment {
 
@@ -144,11 +137,11 @@ public class BottomSheet_AddExp extends BottomSheetDialogFragment {
                     return;
 
 
-                int lente=-1;
+                String lente="";
                 int distFocal=0;
 
                 if (!Lente.getText().toString().isEmpty()){
-                    lente= Integer.parseInt(Lente.getText().toString());
+                    lente= Lente.getText().toString();
                 }
                 if (!DistF.getText().toString().isEmpty()){
                     distFocal= Integer.parseInt(DistF.getText().toString());
@@ -163,6 +156,7 @@ public class BottomSheet_AddExp extends BottomSheetDialogFragment {
                 dismiss();
                 getActivity().finish();
                 Intent intent = new Intent(getContext(),ExposicaoActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("idrolo", r.getIdRolo());
                 startActivity(intent);
 

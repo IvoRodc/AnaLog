@@ -1,9 +1,7 @@
 package pt.isec.gps.grupo14.analog.BottomSheet;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -178,9 +175,9 @@ public class BottomSheet_AddRolo extends BottomSheetDialogFragment {
                     return;
                 }
 
-                int cam=-1;
+                String cam="";
                 if (!Camera.getText().toString().isEmpty()){
-                    cam= Integer.parseInt(Camera.getText().toString());
+                    cam= Camera.getText().toString();
                 }
                 Rolo r = new Rolo(Titulo.getText().toString(), Integer.parseInt(ISO.getText().toString()),
                         Integer.parseInt(Formato.getText().toString()),

@@ -20,13 +20,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 import pt.isec.gps.grupo14.analog.AnaLog.Rolo;
 import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 import pt.isec.gps.grupo14.analog.ExposicaoActivity;
-import pt.isec.gps.grupo14.analog.ListaRolosAdapter;
 import pt.isec.gps.grupo14.analog.R;
-import pt.isec.gps.grupo14.analog.RolosActivity;
 
 public class BottomSheet_EdtRolo extends BottomSheetDialogFragment {
 
@@ -58,9 +55,8 @@ public class BottomSheet_EdtRolo extends BottomSheetDialogFragment {
         final Switch revelado= (Switch)v.findViewById(R.id.ReveladoSwitch) ;
 
         Titulo.setText(rolo.getTitulo());
-        if(rolo.getIdCamera()!=-1) {
-            Camera.setText(Integer.toString(rolo.getIdCamera()));
-        }
+            Camera.setText(rolo.getIdCamera());
+
         ISO.setText(Integer.toString(rolo.getIso()));
         Nexp.setText(Integer.toString(rolo.getMaxExposicoes()));
         Formato.setText(Integer.toString(rolo.getFormato()));
@@ -197,9 +193,9 @@ public class BottomSheet_EdtRolo extends BottomSheetDialogFragment {
 
                 if (control==1)
                     return;
-                int cam=-1;
+                String cam="";
                 if (!Camera.getText().toString().isEmpty()){
-                    cam= Integer.parseInt(Camera.getText().toString());
+                    cam= Camera.getText().toString();
                 }
                 rolo.updateRolo(Titulo.getText().toString(), Integer.parseInt(ISO.getText().toString()),
                         Integer.parseInt(Formato.getText().toString()),

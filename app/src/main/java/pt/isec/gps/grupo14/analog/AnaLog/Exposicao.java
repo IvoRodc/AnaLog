@@ -17,10 +17,10 @@ public class Exposicao {
     private float abertura;
     private int distFocal;
     private String data;
-    private int idObjetiva;
+    private String idObjetiva;
 
     public Exposicao(int velDisparo, float abertura, int distFocal, String descricao, int idRolo,
-                     int idObjetiva, Context context){
+                     String idObjetiva, Context context){
 
         this.velDisparo = velDisparo;
         this.abertura = abertura;
@@ -34,7 +34,7 @@ public class Exposicao {
     }
 
     public Exposicao(int idExposicao, int velDisparo, float abertura, int distFocal,
-                     String descricao, String data, int idRolo, int idObjetiva) {
+                     String descricao, String data, int idRolo, String idObjetiva) {
         this.idExposicao = idExposicao;
         this.idRolo = idRolo;
         this.descricao = descricao;
@@ -73,11 +73,11 @@ public class Exposicao {
         return data;
     }
 
-    public int getIdObjetiva() {
+    public String getIdObjetiva() {
         return idObjetiva;
     }
 
-    public int updateExposicao(String desc, int disp, float ab, int dist, int idObj,
+    public int updateExposicao(String desc, int disp, float ab, int dist, String idObj,
                                Context context) {
         this.descricao = desc;
         this.velDisparo = disp;

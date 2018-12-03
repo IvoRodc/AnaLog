@@ -19,9 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-import pt.isec.gps.grupo14.analog.AnaLog.Camera;
 import pt.isec.gps.grupo14.analog.AnaLog.Objetiva;
-import pt.isec.gps.grupo14.analog.PreferenciasAdapters.ListaCamerasAdapter;
 import pt.isec.gps.grupo14.analog.PreferenciasAdapters.ListaObjetivasAdapter;
 import pt.isec.gps.grupo14.analog.R;
 
@@ -128,6 +126,11 @@ public class BottomSheet_AddObjetiva extends BottomSheetDialogFragment {
     public void show(FragmentManager manager, String tag) {
         super.show(manager, tag);
         open = true;
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        open = false;
     }
 
     public boolean isOpen() {

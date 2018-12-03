@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -33,7 +31,7 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
         this.c=c;
         ListaExp=new ArrayList<>();
         try {
-            ListaExp=new ArrayList<>(db.getExposicoes(idRolo).values());
+            ListaExp=new ArrayList<>(db.getExposicoes(idRolo));
         }catch (NullPointerException exception){
             Log.d("ANALOG LOG", "BASE DE DADOS VAZIA");
         }
@@ -41,6 +39,7 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
+        Integer idexp;
         AppCompatTextView dataFoto;
         AppCompatTextView descFoto;
         AppCompatTextView nomeFoto;
@@ -59,12 +58,16 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
             VelFoto =itemView.findViewById(R.id.Card_Velval_foto);
             DistFoto =itemView.findViewById(R.id.Card_Distval_foto);
 
+
+        }
+        public void setId(int id){
+            idexp=id;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     BottomSheet_EdtExp bottomSheetEdtExp = new BottomSheet_EdtExp();
                     Bundle bEdt = new Bundle();
-                    bEdt.putInt("IDExp", ListaExp.get(getAdapterPosition()).getIdExposicao());
+                    bEdt.putInt("IDExp", idexp);
                     bottomSheetEdtExp.setArguments(bEdt);
                     if(!bottomSheetEdtExp.isOpen()){
                         bottomSheetEdtExp.show( c.getSupportFragmentManager(), "BottomSheet_EdtRolo");
@@ -98,6 +101,7 @@ public class ListaExpAdapter extends RecyclerView.Adapter{
         ((ViewHolder)viewHolder).AberturaFoto.setText(Float.toString(e.getAbertura()));
         ((ViewHolder)viewHolder).VelFoto.setText(Integer.toString(e.getVelDisparo()));
         ((ViewHolder)viewHolder).DistFoto.setText(Integer.toString(e.getDistFocal()));
+        ((ViewHolder)viewHolder).setId(e.getIdExposicao());
     }
 
     @Override

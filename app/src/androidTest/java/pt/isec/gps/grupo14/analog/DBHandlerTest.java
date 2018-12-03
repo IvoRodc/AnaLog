@@ -3,7 +3,6 @@ package pt.isec.gps.grupo14.analog;
 import android.content.Context;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,11 +38,11 @@ public class DBHandlerTest {
 
         context = InstrumentationRegistry.getTargetContext();
         db = new DBHandler(context);
-        r = new Rolo("TESTE",400, 35, 2, "Teste de rolo e cenas", 1 , context );
-        r2 = new Rolo("TESTE",400, 35, 2, "Teste de rolo e cenas", 1 , context );
+        r = new Rolo("TESTE",400, 35, 2, "Teste de rolo e cenas", "teste" , context );
+        r2 = new Rolo("TESTE",400, 35, 2, "Teste de rolo e cenas", "teste" , context );
 
-        e = new Exposicao(100, 100, 100, "Teste exp", 1, 1, context);
-        e1 = new Exposicao(1,100, 100, 100, "teste exp","5/10/2018", 1, 1);
+        e = new Exposicao(100, 100, 100, "Teste exp", 1, "teste", context);
+        e1 = new Exposicao(1,100, 100, 100, "teste exp","5/10/2018", 1, "teste");
 
         o = new Objetiva("Objectiva", "ModeloObj", context);
         o1 = new Objetiva("Objectiva2", "ModeloObj2", context);
@@ -81,7 +80,7 @@ public class DBHandlerTest {
 
 
         Rolo rt = new Rolo(3, "TESTE",400, 35, 2, "Teste de rolo e cenas",
-                false, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), 1,1 );
+                false, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), "teste",1 );
         int obj = db.addRolo(rt);//insert only one roll
 
         assertEquals(3,obj);
@@ -91,7 +90,7 @@ public class DBHandlerTest {
     @Test
     public void updateRolo() {
         Rolo rt = new Rolo(1, "UPDATE",400, 35, 2, "Teste de rolo e cenas",
-                false, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), 1,1 );
+                false, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), "teste",1 );
 
         int obj = db.updateRolo(rt);
         assertEquals(1, obj);
@@ -129,7 +128,7 @@ public class DBHandlerTest {
     @Test
     public void updateExposicao() {
         Exposicao exp = new Exposicao(1, 400, 2, 400,
-        "UPDATE", new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), 1,1 );
+        "UPDATE", new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()), 1,"teste" );
 
 
         int obj = db.updateExposicao(exp);
@@ -173,6 +172,8 @@ public class DBHandlerTest {
     public void removeCamera() {
         int obj = db.removeCamera(1);
         assertEquals(1,obj);
+        assertEquals(null, db.getCamera(1));
+
     }
 
     @Test
@@ -204,6 +205,7 @@ public class DBHandlerTest {
     @Test
     public void removeObjetiva() {
         int obj = db.removeObjetiva(1);
+        assertEquals(null, db.getObjetiva(1));
         assertEquals(1,obj);
     }
 }
