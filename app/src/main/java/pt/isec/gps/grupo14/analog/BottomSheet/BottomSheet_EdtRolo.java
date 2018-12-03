@@ -62,6 +62,7 @@ public class BottomSheet_EdtRolo extends BottomSheetDialogFragment {
         Formato.setText(Integer.toString(rolo.getFormato()));
         Desc.setText(rolo.getDescricao());
         revelado.setChecked(rolo.isRevelado());
+        boolean r = rolo.isRevelado();
         final TextInputLayout Titulolayout = (TextInputLayout)v.findViewById(R.id.TituloNewLayout);
         final TextInputLayout ISOlayout = (TextInputLayout)v.findViewById(R.id.ISONewLayout);
         final TextInputLayout NExplayout = (TextInputLayout)v.findViewById(R.id.NexpNewLayout);
@@ -197,9 +198,11 @@ public class BottomSheet_EdtRolo extends BottomSheetDialogFragment {
                 if (!Camera.getText().toString().isEmpty()){
                     cam= Camera.getText().toString();
                 }
+
                 rolo.updateRolo(Titulo.getText().toString(), Integer.parseInt(ISO.getText().toString()),
                         Integer.parseInt(Formato.getText().toString()),
-                        Integer.parseInt(Nexp.getText().toString()),Desc.getText().toString(), revelado.isChecked() ,
+                        Integer.parseInt(Nexp.getText().toString()),Desc.getText().toString(),
+                        revelado.isChecked() ,
                         cam, getContext());
 
                 Intent intent = new Intent(getContext(),ExposicaoActivity.class);

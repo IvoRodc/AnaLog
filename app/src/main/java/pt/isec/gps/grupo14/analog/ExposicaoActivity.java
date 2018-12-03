@@ -81,7 +81,7 @@ public class ExposicaoActivity extends AppCompatActivity {
 
         //se o rolo ja estiver a maxima capacidade desabilita o botao de adicionar novas exp
         FloatingActionButton fab = findViewById(R.id.fab_addExp);
-        if(rolo.getnExposicoes()==rolo.getMaxExposicoes())
+        if(rolo.getnExposicoes()==rolo.getMaxExposicoes() || rolo.isRevelado())
         {
             fab.setEnabled(false);
             fab.setSupportBackgroundTintList(ContextCompat.getColorStateList(this, R.color.disabledButton));
@@ -96,8 +96,12 @@ public class ExposicaoActivity extends AppCompatActivity {
         AppCompatTextView dataCriacao =findViewById(R.id.Cab_data_criacao);
         AppCompatTextView descRolo = findViewById(R.id.Cab_desc_rolo);
 
+        String rev = "";
+        if (rolo.isRevelado()) {
+            rev = " Revelado";
+        }
         //dados da BD, utilizando o IDRolo
-        nFotos.setText(rolo.getnExposicoes() + "/" + rolo.getMaxExposicoes());
+        nFotos.setText(rolo.getnExposicoes() + "/" + rolo.getMaxExposicoes()+rev);
         nomeRolo.setText(rolo.getTitulo());
         nomeCamera.setText(rolo.getIdCamera());
         dataCriacao.setText(rolo.getData());

@@ -146,16 +146,19 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM " + table_rolo + " WHERE " + IDrolo + "=" + idRolo;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
+        boolean revelado=false;
         if (cursor.getCount() > 0){
             String getNExposicoes = "SELECT COUNT("+IDexp+") FROM " + table_exposicao + " WHERE "
                     + IDrolo + "="+idRolo;
             Cursor countCursor = db.rawQuery(getNExposicoes, null);
             countCursor.moveToFirst();
             cursor.moveToFirst();
+            if (cursor.getInt(6) > 0){
+                 revelado=true;
+            }
             Rolo r=new Rolo(cursor.getInt(0), cursor.getString(1),
                 cursor.getInt(2), cursor.getInt(3),
-                cursor.getInt(4), cursor.getString(5), Boolean.parseBoolean(cursor.getString(6)),
+                cursor.getInt(4), cursor.getString(5), revelado,
                 cursor.getString(7), cursor.getString(8), countCursor.getInt(0));
 
             cursor.close();
