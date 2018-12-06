@@ -1,11 +1,14 @@
 package pt.isec.gps.grupo14.analog.BottomSheet;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +19,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import pt.isec.gps.grupo14.analog.AnaLog.Exposicao;
+import pt.isec.gps.grupo14.analog.AnaLog.Objetiva;
+import pt.isec.gps.grupo14.analog.DataBase.DBHandler;
 import pt.isec.gps.grupo14.analog.ExposicaoActivity;
 import pt.isec.gps.grupo14.analog.R;
 
@@ -36,6 +43,44 @@ public class BottomSheet_AddExp extends BottomSheetDialogFragment {
         return super.getContext();
     }
 
+
+    private View.OnClickListener btnListenerLente = new View.OnClickListener()
+    {
+
+        public void onClick(View view)
+        {
+            final View v = view;
+            DBHandler db = new DBHandler(getContext());
+            final ArrayList<Objetiva> Objetivas;
+            try {
+                Objetivas = new ArrayList<>(db.getObjetivas().values());
+            }catch (NullPointerException e){
+
+                Log.e("DEBUG:", "Sem objectivas na lista");
+                return;
+            }
+            final ArrayList<String> ObjNames = new ArrayList<String>();
+
+            for (int i=0; i<Objetivas.size(); i++)
+            {
+                ObjNames.add((Objetivas.get(i).getMarca()+ " "+Objetivas.get(i).getModelo()));
+            }
+
+            AlertDialog.Builder ad = new AlertDialog.Builder(getContext());
+            ad.setTitle(getString(R.string.Cam_escolha));
+
+            ad.setSingleChoiceItems(ObjNames.toArray(new String[ObjNames.size()]), -1, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ((TextInputEditText)v.findViewById(R.id.Lente_New_Exp)).setText(ObjNames.get(which));
+                    dialog.dismiss();
+                }
+            });
+
+            ad.show();
+        }
+
+    };
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +95,9 @@ public class BottomSheet_AddExp extends BottomSheetDialogFragment {
         final TextInputLayout Aberturalayout = (TextInputLayout)v.findViewById(R.id.AberturaLayout);
         final TextInputLayout VelDlayout = (TextInputLayout)v.findViewById(R.id.VelDLayout);
         final TextInputLayout Desclayout = (TextInputLayout)v.findViewById(R.id.DescLayout);
+
+        Lente.setOnClickListener(btnListenerLente);
+
         abertura.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

@@ -1,11 +1,18 @@
 package pt.isec.gps.grupo14.analog;
 
-import androidx.appcompat.app.AlertDialog;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.Switch;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputEditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.TextViewCompat;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_AddCamera;
 import pt.isec.gps.grupo14.analog.BottomSheet.BottomSheet_AddObjetiva;
@@ -13,19 +20,6 @@ import pt.isec.gps.grupo14.analog.PreferenciasAdapters.FragmentCamerasAdapter;
 import pt.isec.gps.grupo14.analog.PreferenciasAdapters.FragmentObjetivasAdapter;
 import pt.isec.gps.grupo14.analog.PreferenciasAdapters.FragmentPerfilAdapter;
 import pt.isec.gps.grupo14.analog.PreferenciasAdapters.ViewPagerAdapter;
-
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Switch;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class PreferenciasActivity extends AppCompatActivity {
 
@@ -124,7 +118,11 @@ public class PreferenciasActivity extends AppCompatActivity {
 
         TextInputEditText Usern = adapter.getItem(0).getView().findViewById(R.id.UserName);
         Switch Notif = adapter.getItem(0).getView().findViewById(R.id.Notif);
-        editor.putString(PREFS_PROFILE_NAME, Usern.getText().toString());
+        if(!Usern.getText().toString().isEmpty()) {
+            editor.putString(PREFS_PROFILE_NAME, Usern.getText().toString());
+        }else{
+            editor.putString(PREFS_PROFILE_NAME,"Utilizador");
+        }
         editor.putBoolean(PREFS_PROFILE_NOTF, Notif.isChecked());
 
         editor.commit();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:digits="abcdefghijklmnopqrstuvwxyzçÇ, ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"
             android:maxLines="1"
             android:textSize="15sp"
             android:maxLength="20"/>
@@ -136,6 +138,7 @@
             android:id="@+id/Desc_New_Rolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:digits="abcdefghijklmnopqrstuvwxyzçÇ,. ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"
             android:inputType="text"
             android:maxLines="1"
             android:textSize="15sp"

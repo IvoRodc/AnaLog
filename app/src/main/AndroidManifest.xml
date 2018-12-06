@@ -25,10 +25,6 @@
             android:name=".ExposicaoActivity"
             android:parentActivityName=".RolosActivity"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".PerfilActivity"
-            android:label="@string/title_activity_perfil"
-            android:screenOrientation="portrait"/>
         <activity android:name=".PreferenciasActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"></activity>

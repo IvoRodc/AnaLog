@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:digits="abcdefghijklmnopqrstuvwxyzçÇ, ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"
             android:maxLines="1"
             android:maxLength="20"
             android:textSize="15sp"/>
@@ -95,7 +96,7 @@
             android:id="@+id/NExp_Edt_Rolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="number"
             android:maxLines="1"
             android:textSize="15sp"
             android:maxLength="2"/>
@@ -135,6 +136,7 @@
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
             android:id="@+id/Desc_Edt_Rolo"
+            android:digits="abcdefghijklmnopqrstuvwxyzçÇ,.ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789 "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -174,8 +176,8 @@
             android:layout_height="wrap_content"
             android:text="@string/eliminar"
             android:onClick="onClickDeleteRolo"
-            android:backgroundTint="@color/blue900"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            style="@style/AppTheme.ButtonRemove"/>
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Btn_Edt_Rolo"
             android:layout_width="wrap_content"

@@ -111,6 +111,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
+            android:digits="abcdefghijklmnopqrstuvwxyzçÇ,. ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"
             android:maxLength="200"
             android:textSize="15sp"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -126,8 +127,9 @@
             android:layout_height="wrap_content"
             android:text="Eliminar"
             android:onClick="onClickDeleteExp"
-            android:backgroundTint="@color/blue900"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            style="@style/AppTheme.ButtonRemove"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Btn_Edt_Exp"
             android:layout_width="wrap_content"

@@ -54,6 +54,7 @@ public class FragmentPerfilAdapter extends Fragment {
         Notif = v.findViewById(R.id.Notif);
 
         //define os valores
+
         Usern.setText(UserName);
         Notif.setChecked(NotifStatus);
 

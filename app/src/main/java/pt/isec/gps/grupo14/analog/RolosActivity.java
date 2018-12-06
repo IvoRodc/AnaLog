@@ -8,11 +8,13 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -89,6 +91,9 @@ public class RolosActivity extends AppCompatActivity implements SearchView.OnQue
         MenuItem def = menu.findItem(R.id.menu_rolos_settings);
         MenuItem menuItem = menu.findItem(R.id.menu_rolos_search);
         SearchView searchView = (SearchView)menuItem.getActionView();
+        EditText editText = (EditText) searchView.findViewById(R.id.search_src_text);
+        editText.setKeyListener(DigitsKeyListener.getInstance("abcdefghijklmnopqrstuvwxyzçÇ, ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"));
+
         searchView.setOnQueryTextListener(this);
 
         return true;
@@ -177,7 +182,7 @@ public class RolosActivity extends AppCompatActivity implements SearchView.OnQue
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        adapter.searchRolo(query.toLowerCase());
+            adapter.searchRolo(query.toLowerCase());
         return false;
     }
 
