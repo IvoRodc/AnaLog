@@ -29,10 +29,12 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/nome_rolo"
-                android:layout_width="wrap_content"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:text="Rolo 1"
-                android:textSize="32sp"/>
+                android:textSize="32sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -74,7 +76,9 @@
                 android:gravity="end"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"/>
+                android:paddingTop="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"/>
 
         </LinearLayout>
 

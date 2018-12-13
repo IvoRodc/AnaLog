@@ -47,11 +47,13 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/Card_Desc_Foto"
-                    android:layout_width="wrap_content"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:text="Lorem ipsum dolor sit amet"
+                    android:text="Lorem ipasum dolor sit amet"
                     android:textSize="13sp"
-                    android:layout_marginStart="2dp"/>
+                    android:layout_marginStart="2dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"/>
 
             </LinearLayout>
 
