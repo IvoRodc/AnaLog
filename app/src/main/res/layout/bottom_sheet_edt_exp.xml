@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
-            android:digits="abcdefghijklmnopqrstuvwxyzçÇ,. ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"
+            android:digits="abcdefghijklmnopqrstuvwxyzçÇ.ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890é-ÉÀ "
             android:maxLength="200"
             android:textSize="15sp"/>
     </com.google.android.material.textfield.TextInputLayout>
