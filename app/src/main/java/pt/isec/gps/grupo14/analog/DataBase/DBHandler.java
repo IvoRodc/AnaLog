@@ -193,7 +193,6 @@ public class DBHandler extends SQLiteOpenHelper {
         } else {
             cursor.close();
             db.close();
-            return null;
         }
         return ListaRolos;
     }
