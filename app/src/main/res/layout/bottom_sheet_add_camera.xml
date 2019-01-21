@@ -28,7 +28,7 @@
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
             android:id="@+id/newMarcaText"
-            android:digits="abcdefghijklmnopqrstuvwxyzçÇ.ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890é-ÉÀ "
+            android:digits="@string/verify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -50,7 +50,7 @@
         <com.google.android.material.textfield.TextInputEditText
             style="@style/AppTheme.TextCursor"
             android:id="@+id/newModeloText"
-            android:digits="abcdefghijklmnopqrstuvwxyzçÇ.ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890é-ÉÀ "
+            android:digits="@string/verify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"

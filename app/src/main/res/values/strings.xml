@@ -72,5 +72,6 @@
     <string name="equipamento_modelo">Modelo</string>
     <string name="erroEquipamento">Campo de preenchimento obrigatório</string>
     <string name="Remv">Remover</string>
+    <string name="verify">abcdefghijklmnopqrstuvwxyzçÇ.,ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890é-ÉÀ</string>
 
 </resources>

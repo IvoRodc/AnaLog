@@ -112,7 +112,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:maxLength="200"
-            android:digits="abcdefghijklmnopqrstuvwxyzçÇ.ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890é-ÉÀ "
+            android:digits="@string/verify"
             android:textSize="15sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 

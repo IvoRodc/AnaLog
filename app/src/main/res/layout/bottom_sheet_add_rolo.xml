@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:digits="abcdefghijklmnopqrstuvwxyzçÇ.ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890é-ÉÀ "
+            android:digits="@string/verify"
             android:maxLines="1"
             android:textSize="15sp"
             android:maxLength="20"/>
@@ -138,7 +138,7 @@
             android:id="@+id/Desc_New_Rolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:digits="abcdefghijklmnopqrstuvwxyzçÇ.ãÃõÕáàóò()ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890é-ÉÀ "
+            android:digits="@string/verify"
             android:inputType="text"
             android:maxLines="1"
             android:textSize="15sp"
